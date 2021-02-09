@@ -24,6 +24,8 @@
 - [ ] Testing
 - [ ] Authentication and authorization
 - [ ] Error handling
+- [ ] Security
+- [ ] Compression
 - [ ] Logging
 - [ ] Validation
 - [ ] Environment variables
