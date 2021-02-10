@@ -7,8 +7,10 @@
 
 # Technology stack
 
-- Node.js (Express)
-- React.js (Ant Design)
+- Node.js
+- Express.js
+- React.js
+- Ant Design
 - Redux
 - Scss
 - PostgreSQL
