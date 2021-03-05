@@ -18,10 +18,14 @@ module.exports = new EntitySchema({
     },
   },
   relations: {
+    fk_basket: {
+      target: 'Basket',
+      type: 'one-to-many',
+      cascade: true,
+    },
     fk_cat: {
       target: 'Category',
-      type: 'one-to-many',
-      joinTable: true,
+      type: 'many-to-one',
       cascade: true,
     },
   },

@@ -4,15 +4,9 @@ const logger = require('./logger');
 
 module.exports = async () => {
   try {
-    logger.info(`
-      ###########################
-      ✅  Database connected ✅
-      ###########################`);
+    logger.info(`✅ Database connected`);
   } catch (err) {
-    logger.error(`
-      ###########################################
-      🔥  Database connection error -> ${err} 🔥
-      ###########################################`);
+    logger.error(`❌ Database connection error -> ${err}`);
   }
 
   await createConnection();

@@ -14,14 +14,12 @@ module.exports = new EntitySchema({
   relations: {
     fk_prod: {
       target: 'Product',
-      type: 'one-to-many',
-      joinTable: true,
+      type: 'many-to-one',
       cascade: true,
     },
     fk_user: {
       target: 'User',
-      type: 'one-to-many',
-      joinTable: true,
+      type: 'many-to-one',
       cascade: true,
     },
   },

@@ -23,4 +23,9 @@ module.exports = new EntitySchema({
       type: 'varchar',
     },
   },
+  fk_cat: {
+    target: 'Category',
+    type: 'one-to-many',
+    cascade: true,
+  },
 });

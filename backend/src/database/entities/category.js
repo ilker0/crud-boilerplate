@@ -14,4 +14,16 @@ module.exports = new EntitySchema({
       type: 'varchar',
     },
   },
+  relations: {
+    fk_prod: {
+      target: 'Product',
+      type: 'one-to-many',
+      cascade: true,
+    },
+    fk_user: {
+      target: 'User',
+      type: 'many-to-one',
+      cascade: true,
+    },
+  },
 });
