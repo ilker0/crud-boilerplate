@@ -1,4 +1,6 @@
 const dotenv = require('dotenv');
+var typeorm = require('typeorm');
+var EntitySchema = typeorm.EntitySchema;
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -26,5 +28,21 @@ module.exports = {
   emails: {
     apiKey: process.env.MAILGUN_API_KEY,
     domain: process.env.MAILGUN_DOMAIN,
+  },
+  typeOrm: {
+    type: process.env.TYPEORM_TYPE,
+    host: process.env.TYPEORM_HOST,
+    port: process.env.TYPEORM_PORT,
+    username: process.env.TYPEORM_USERNAME,
+    password: process.env.TYPEORM_PASSWORD,
+    database: process.env.TYPEORM_DATABASE,
+    entities: ['src/database/entities/**/*.js'],
+    migrations: ['src/database/migrations/**/*.js'],
+    cli: {
+      entitiesDir: 'src/entities',
+      migrationsDir: 'src/migrations',
+    },
+    synchronize: true,
+    migrationsRun: false,
   },
 };
