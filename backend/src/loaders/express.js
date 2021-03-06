@@ -8,12 +8,13 @@ module.exports = ({ app }) => {
   app.use(cors());
   app.use(require('method-override')());
   app.use(bodyParser.json());
+  app.use(bodyParser.urlencoded({ extended: true }));
 
   app.use(config.api.prefix, routes());
 
   app.use((req, res, next) => {
     const err = new Error('Not Found');
-    err['status'] = 404;
+    err.status = 404;
     next(err);
   });
 
@@ -21,6 +22,7 @@ module.exports = ({ app }) => {
     res.status(err.status || 500);
     res.json({
       errors: {
+        statusCode: err.status ? err.status : '500',
         message: err.message,
       },
     });

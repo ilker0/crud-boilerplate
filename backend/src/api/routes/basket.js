@@ -2,7 +2,7 @@ const { Router } = require('express');
 const route = Router();
 
 module.exports = app => {
-  app.use('/users', route);
+  app.use('/basket', route);
 
   route.get('/', (request, response) => {
     return response.json({}).status(200);

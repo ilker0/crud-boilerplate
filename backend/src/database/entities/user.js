@@ -4,11 +4,11 @@ module.exports = new EntitySchema({
   name: 'User',
   columns: {
     id: {
-      name: 'id',
-      type: 'varchar',
+      type: 'uuid',
       primary: true,
       generationStrategy: 'uuid',
-      default: 'uuid_generate_v4()',
+      generated: 'uuid',
+      nullable: false,
     },
     name: {
       type: 'text',
@@ -18,9 +18,15 @@ module.exports = new EntitySchema({
     },
     username: {
       type: 'varchar',
+      unique: true,
     },
     password: {
       type: 'varchar',
+    },
+    isActive: {
+      type: 'enum',
+      default: 1,
+      enum: [0, 1],
     },
   },
   fk_cat: {

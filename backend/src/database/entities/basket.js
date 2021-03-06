@@ -4,11 +4,11 @@ module.exports = new EntitySchema({
   name: 'Basket',
   columns: {
     id: {
-      name: 'id',
-      type: 'varchar',
+      type: 'uuid',
       primary: true,
       generationStrategy: 'uuid',
-      default: 'uuid_generate_v4()',
+      generated: 'uuid',
+      nullable: false,
     },
   },
   relations: {
