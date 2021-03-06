@@ -16,4 +16,18 @@ module.exports = error => {
       message: error.detail,
     };
   }
+
+  if (name === 'ValidationError') {
+    return {
+      status: 422,
+      message: error.message,
+    };
+  }
+
+  if (name === 'RequestError') {
+    return {
+      status: 400,
+      message: error.message,
+    };
+  }
 };

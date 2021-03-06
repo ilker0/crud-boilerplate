@@ -23,6 +23,10 @@ module.exports = new EntitySchema({
     password: {
       type: 'varchar',
     },
+    currentHashedRefreshToken: {
+      type: 'varchar',
+      nullable: true,
+    },
     isActive: {
       type: 'enum',
       default: 1,

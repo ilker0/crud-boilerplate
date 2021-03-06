@@ -9,8 +9,8 @@ module.exports = app => {
 
   route.post('/login', async (request, response, next) => {
     try {
-      const loginServiceStatus = await login(request.body);
-      return response.status(200).json({});
+      const { accessToken, refreshToken } = await login(request.body);
+      return response.status(200).json({ message: { accessToken, refreshToken } });
     } catch (error) {
       return next(error);
     }
