@@ -2,6 +2,8 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const config = require('../config');
 const routes = require('../api');
+const swagger = require('./swagger');
+const swaggerUI = require('swagger-ui-express');
 
 module.exports = ({ app }) => {
   app.enable('trust proxy');
@@ -10,8 +12,9 @@ module.exports = ({ app }) => {
   app.use(bodyParser.json());
   app.use(bodyParser.urlencoded({ extended: true }));
 
-  app.use(config.api.prefix, routes());
+  app.use('/docs', swaggerUI.serve, swaggerUI.setup(swagger()));
 
+  app.use(config.api.prefix, routes());
   app.use((req, res, next) => {
     const err = new Error('Not Found');
     err.status = 404;

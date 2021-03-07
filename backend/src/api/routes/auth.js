@@ -7,6 +7,14 @@ const route = Router();
 module.exports = app => {
   app.use('/auth', route);
 
+  /**
+   * @swagger
+   * /login:
+   *   get:
+   *     summary: Retrieve a list of JSONPlaceholder users
+   *     description: Retrieve a list of users from JSONPlaceholder. Can be used to populate a list of fake users when prototyping or testing an API.
+   */
+
   route.post('/login', async (request, response, next) => {
     try {
       const { accessToken, refreshToken } = await login(request.body);
