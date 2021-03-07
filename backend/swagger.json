@@ -9,17 +9,33 @@
       "url": "https://opensource.org/licenses/MIT"
     }
   },
-  "consumes": [
-    "application/json"
-  ],
-  "produces": [
-    "application/json"
-  ],
+  "consumes": ["application/json"],
+  "produces": ["application/json"],
   "paths": {
     "/auth/register": {
       "post": {
-        "tags": [
-          "Auth"
+        "tags": ["Auth"],
+        "parameters": [
+          {
+            "name": "username",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "name",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "surname",
+            "required": true,
+            "type": "string"
+          }
         ],
         "responses": {
           "201": {
@@ -33,9 +49,7 @@
     },
     "/auth/login": {
       "post": {
-        "tags": [
-          "Auth"
-        ],
+        "tags": ["Auth"],
         "responses": {
           "200": {
             "description": "OK",
@@ -56,7 +70,7 @@
         }
       }
     },
-  "Login": {
+    "Login": {
       "type": "object",
       "properties": {
         "message": {
