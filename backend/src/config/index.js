@@ -1,6 +1,5 @@
 const dotenv = require('dotenv');
 var typeorm = require('typeorm');
-var EntitySchema = typeorm.EntitySchema;
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
