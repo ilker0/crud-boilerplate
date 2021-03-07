@@ -1,5 +1,4 @@
 const dotenv = require('dotenv');
-var typeorm = require('typeorm');
 
 process.env.NODE_ENV = process.env.NODE_ENV || 'development';
 
@@ -14,7 +13,9 @@ module.exports = {
   databaseURL: process.env.MONGODB_URI,
 
   jwtSecret: process.env.JWT_SECRET,
-  jwtAlgorithm: process.env.JWT_ALGO,
+  jwtRefreshSecret: process.env.JWT_REFRESH_SECRET,
+  jwtExpire: process.env.JWT_EXPIRE,
+  jwtRefreshExpire: process.env.JWT_REFRESH_EXPIRE,
 
   logs: {
     level: process.env.LOG_LEVEL || 'silly',
@@ -37,11 +38,8 @@ module.exports = {
     database: process.env.TYPEORM_DATABASE,
     entities: ['src/database/entities/**/*.js'],
     migrations: ['src/database/migrations/**/*.js'],
-    cli: {
-      entitiesDir: 'src/entities',
-      migrationsDir: 'src/migrations',
-    },
+    seeds: ['src/database/seeds/**/*.js'],
+    factories: ['src/database/factories/**/*.js'],
     synchronize: true,
-    migrationsRun: false,
   },
 };

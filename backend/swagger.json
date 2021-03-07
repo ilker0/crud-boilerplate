@@ -50,6 +50,18 @@
     "/auth/login": {
       "post": {
         "tags": ["Auth"],
+        "parameters": [
+          {
+            "name": "username",
+            "required": true,
+            "type": "string"
+          },
+          {
+            "name": "password",
+            "required": true,
+            "type": "string"
+          }
+        ],
         "responses": {
           "200": {
             "description": "OK",

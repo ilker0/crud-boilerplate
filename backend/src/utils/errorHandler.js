@@ -3,13 +3,6 @@ const httpStatusCodes = require('./httpStatusCodes');
 module.exports = error => {
   const { name } = error;
 
-  if (name === 'ReferenceError') {
-    return {
-      status: 500,
-      message: httpStatusCodes[500],
-    };
-  }
-
   if (name === 'QueryFailedError') {
     return {
       status: 400,
@@ -30,4 +23,9 @@ module.exports = error => {
       message: error.message,
     };
   }
+
+  return {
+    status: 500,
+    message: httpStatusCodes[500],
+  };
 };

@@ -4,6 +4,7 @@ const errorHandler = require('../utils/errorHandler');
 const bcrypt = require('bcrypt');
 const { wrong, blocked, alreadyHave } = require('../utils/errors');
 const jwt = require('jsonwebtoken');
+const config = require('../config');
 
 class AuthService {
   hashPassword = async password => {
@@ -17,15 +18,15 @@ class AuthService {
   };
 
   generateToken = async payload => {
-    const token = await jwt.sign({ id: payload.id, username: payload.username }, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_EXPIRE,
+    const token = await jwt.sign({ id: payload.id, username: payload.username }, config.jwtSecret, {
+      expiresIn: config.jwtExpire,
     });
     return token;
   };
 
   generateRefreshToken = async payload => {
-    const token = await jwt.sign({ id: payload.id, username: payload.username }, process.env.JWT_REFRESH_TOKEN, {
-      expiresIn: process.env.JWT_REFRESH_EXPIRE,
+    const token = await jwt.sign({ id: payload.id, username: payload.username }, config.jwtRefreshSecret, {
+      expiresIn: config.jwtRefreshExpire,
     });
 
     update({ currentHashedRefreshToken: token }, { id: payload.id });
@@ -67,6 +68,7 @@ class AuthService {
       const generatedToken = await this.tokenSign(user);
       return generatedToken;
     } catch (error) {
+      console.log(error);
       throw errorHandler(error);
     }
   };

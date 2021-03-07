@@ -10,6 +10,15 @@ module.exports = new EntitySchema({
       generated: 'uuid',
       nullable: false,
     },
+    createdAt: {
+      type: 'timestamp',
+      default: () => 'CURRENT_TIMESTAMP(6)',
+    },
+    updateAt: {
+      type: 'timestamp',
+      default: () => 'CURRENT_TIMESTAMP(6)',
+      onUpdate: 'CURRENT_TIMESTAMP(6)',
+    },
   },
   relations: {
     fk_prod: {

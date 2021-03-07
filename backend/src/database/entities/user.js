@@ -32,10 +32,26 @@ module.exports = new EntitySchema({
       default: 1,
       enum: [0, 1],
     },
+    createdAt: {
+      type: 'timestamp',
+      default: () => 'CURRENT_TIMESTAMP(6)',
+    },
+    updateAt: {
+      type: 'timestamp',
+      default: () => 'CURRENT_TIMESTAMP(6)',
+      onUpdate: 'CURRENT_TIMESTAMP(6)',
+    },
   },
-  fk_cat: {
-    target: 'Category',
-    type: 'one-to-many',
-    cascade: true,
+  relations: {
+    fk_cat: {
+      target: 'Category',
+      type: 'one-to-many',
+      cascade: true,
+    },
+    fk_role: {
+      target: 'Role',
+      type: 'many-to-one',
+      cascade: true,
+    },
   },
 });

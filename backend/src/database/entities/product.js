@@ -21,6 +21,15 @@ module.exports = new EntitySchema({
       default: 1,
       enum: [0, 1],
     },
+    createdAt: {
+      type: 'timestamp',
+      default: () => 'CURRENT_TIMESTAMP(6)',
+    },
+    updateAt: {
+      type: 'timestamp',
+      default: () => 'CURRENT_TIMESTAMP(6)',
+      onUpdate: 'CURRENT_TIMESTAMP(6)',
+    },
   },
   relations: {
     fk_basket: {

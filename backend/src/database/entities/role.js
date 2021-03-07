@@ -1,17 +1,16 @@
 const EntitySchema = require('typeorm').EntitySchema;
 
 module.exports = new EntitySchema({
-  name: 'Category',
+  name: 'Role',
   columns: {
-    id: {
-      type: 'uuid',
-      primary: true,
-      generationStrategy: 'uuid',
-      generated: 'uuid',
-      nullable: false,
-    },
     name: {
       type: 'varchar',
+      unique: true,
+      primary: true,
+      nullable: false,
+    },
+    permissions: {
+      type: 'text',
     },
     isActive: {
       type: 'enum',
@@ -29,14 +28,9 @@ module.exports = new EntitySchema({
     },
   },
   relations: {
-    fk_prod: {
-      target: 'Product',
-      type: 'one-to-many',
-      cascade: true,
-    },
     fk_user: {
       target: 'User',
-      type: 'many-to-one',
+      type: 'one-to-many',
       cascade: true,
     },
   },
