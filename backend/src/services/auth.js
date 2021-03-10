@@ -18,7 +18,7 @@ class AuthService {
   };
 
   generateToken = async payload => {
-    const token = await jwt.sign({ id: payload.id, username: payload.username }, config.jwtSecret, {
+    const token = await jwt.sign({ id: payload.id, username: payload.username, role: payload.role }, config.jwtSecret, {
       expiresIn: config.jwtExpire,
     });
     return token;
@@ -49,7 +49,7 @@ class AuthService {
       }
 
       const { username, password } = data;
-      const user = await selectOne({ username });
+      const user = await selectOne({ username }, { relations: ['role'], join: { alias: 'role' } });
 
       if (!user) {
         throw { name: 'RequestError', message: wrong('USERNAME_OR_PASSWORD') };
@@ -88,8 +88,8 @@ class AuthService {
       }
 
       data.password = await this.hashPassword(data.password);
-      const result = await create(data);
 
+      const result = await create(data);
       return result;
     } catch (error) {
       throw errorHandler(error);

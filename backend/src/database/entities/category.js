@@ -29,14 +29,14 @@ module.exports = new EntitySchema({
     },
   },
   relations: {
-    fk_prod: {
-      target: 'Product',
-      type: 'one-to-many',
-      cascade: true,
-    },
-    fk_user: {
+    user: {
       target: 'User',
       type: 'many-to-one',
+      cascade: true,
+    },
+    product: {
+      target: 'Product',
+      type: 'one-to-many',
       cascade: true,
     },
   },

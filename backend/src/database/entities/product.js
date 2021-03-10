@@ -13,6 +13,9 @@ module.exports = new EntitySchema({
     name: {
       type: 'varchar',
     },
+    description: {
+      type: 'text',
+    },
     price: {
       type: 'varchar',
     },
@@ -32,14 +35,19 @@ module.exports = new EntitySchema({
     },
   },
   relations: {
-    fk_basket: {
-      target: 'Basket',
-      type: 'one-to-many',
+    user: {
+      target: 'User',
+      type: 'many-to-one',
       cascade: true,
     },
-    fk_cat: {
+    category: {
       target: 'Category',
       type: 'many-to-one',
+      cascade: true,
+    },
+    image: {
+      target: 'ProductImage',
+      type: 'one-to-many',
       cascade: true,
     },
   },

@@ -16,20 +16,20 @@ class UserRepository {
 
   selectAll = async filter => {};
 
-  selectOne = async filter => {
+  selectOne = async (filter, options) => {
     try {
       const userRepo = getRepository(User);
-      const result = await userRepo.findOne(filter);
+      const result = await userRepo.findOne(filter, options);
       return result;
     } catch (error) {
       throw error;
     }
   };
 
-  update = async (data, where) => {
+  update = async (data, options) => {
     try {
       const userRepo = getRepository(User);
-      const result = await userRepo.update(where, data);
+      const result = await userRepo.update(options, data);
       return result;
     } catch (error) {
       throw error;

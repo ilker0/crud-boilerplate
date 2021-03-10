@@ -43,12 +43,17 @@ module.exports = new EntitySchema({
     },
   },
   relations: {
-    fk_cat: {
+    category: {
       target: 'Category',
       type: 'one-to-many',
       cascade: true,
     },
-    fk_role: {
+    product: {
+      target: 'Product',
+      type: 'one-to-many',
+      cascade: true,
+    },
+    role: {
       target: 'Role',
       type: 'many-to-one',
       cascade: true,
