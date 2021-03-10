@@ -12,9 +12,9 @@
   "consumes": ["application/json"],
   "produces": ["application/json"],
   "paths": {
-    "/auth/register": {
+    "/user/register": {
       "post": {
-        "tags": ["Auth"],
+        "tags": ["User"],
         "parameters": [
           {
             "name": "username",
@@ -47,9 +47,9 @@
         }
       }
     },
-    "/auth/login": {
+    "/user/login": {
       "post": {
-        "tags": ["Auth"],
+        "tags": ["User"],
         "parameters": [
           {
             "name": "username",

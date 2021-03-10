@@ -1,4 +1,4 @@
-const { loginSchema, registerSchema } = require('../validations/auth');
+const { loginSchema, registerSchema } = require('../validations/user');
 const { create, selectOne, update } = require('../database/repositories/user');
 const errorHandler = require('../utils/errorHandler');
 const bcrypt = require('bcrypt');
@@ -41,15 +41,16 @@ class AuthService {
     };
   };
 
-  login = async data => {
+  login = async request => {
     try {
+      const { body: data } = request;
       const { error } = loginSchema.validate(data);
       if (error) {
         throw { name: 'ValidationError', message: `${error.details.map(x => x.message).join(', ')}` };
       }
 
       const { username, password } = data;
-      const user = await selectOne({ username }, { relations: ['role'], join: { alias: 'role' } });
+      const user = await selectOne({ username }, { relations: ['role'] });
 
       if (!user) {
         throw { name: 'RequestError', message: wrong('USERNAME_OR_PASSWORD') };
@@ -68,13 +69,20 @@ class AuthService {
       const generatedToken = await this.tokenSign(user);
       return generatedToken;
     } catch (error) {
-      console.log(error);
       throw errorHandler(error);
     }
   };
 
-  register = async data => {
+  registerSave = async data => {
+    data.password = await this.hashPassword(data.password);
+    const result = await create(data);
+
+    return result;
+  };
+
+  register = async request => {
     try {
+      const { body: data } = request;
       const { error } = registerSchema.validate(data);
       if (error) {
         throw { name: 'ValidationError', message: `${error.details.map(x => x.message).join(', ')}` };
@@ -87,9 +95,9 @@ class AuthService {
         throw { name: 'RequestError', message: alreadyHave('USERNAME') };
       }
 
-      data.password = await this.hashPassword(data.password);
+      data.role = 'EDITOR';
+      const result = await this.registerSave(data);
 
-      const result = await create(data);
       return result;
     } catch (error) {
       throw errorHandler(error);

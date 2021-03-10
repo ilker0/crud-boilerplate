@@ -12,6 +12,7 @@ module.exports = new EntitySchema({
     },
     name: {
       type: 'varchar',
+      unique: true,
     },
     isActive: {
       type: 'enum',
