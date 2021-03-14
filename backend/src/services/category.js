@@ -35,7 +35,18 @@ class CategoryService {
 		try {
 			const { query } = request;
 			const parsedQuery = queryParser.parseQuery(query);
+			parsedQuery.relations = ['user'];
 			const result = await selectAll(parsedQuery);
+
+			result[0] = result[0].map(item => {
+				const { user: userItem } = item;
+				return {
+					...item,
+					user: {
+						username: userItem.username,
+					},
+				};
+			});
 
 			return {
 				data: result[0] || [],

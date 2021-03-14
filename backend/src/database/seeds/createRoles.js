@@ -15,6 +15,8 @@ class RoleSeed {
 						permissions.createCategory,
 						permissions.selectProduct,
 						permissions.createProduct,
+						permissions.editProduct,
+						permissions.deleteProduct,
 					],
 				},
 				{
