@@ -36,7 +36,6 @@ class CategoryService {
 			const { query } = request;
 			const parsedQuery = queryParser.parseQuery(query);
 			const result = await selectAll(parsedQuery);
-			console.log(parsedQuery)
 
 			return {
 				data: result[0] || [],

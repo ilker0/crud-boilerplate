@@ -43,11 +43,11 @@ class QueryParser {
 		if (Array.isArray(sort)) {
 			sort.forEach(item => {
 				const splitedItem = item.split(',');
-				sortObject[splitedItem[0]] = splitedItem[1];
+				sortObject[splitedItem[0]] = splitedItem[1] || 'ASC';
 			});
 		} else {
 			const splitedItem = sort.split(',');
-			sortObject[splitedItem[0]] = splitedItem[1];
+			sortObject[splitedItem[0]] = splitedItem[1] || 'ASC';
 		}
 
 		return sortObject;
@@ -76,6 +76,10 @@ class QueryParser {
 	}
 
 	getFilterCondition(value, condition) {
+		if (condition === '_in' || condition === '_any' || condition === '_between') {
+			value = value.split(',');
+		}
+
 		const conditions = {
 			_not: Not(value),
 			_lthan: LessThan(value),
@@ -83,15 +87,15 @@ class QueryParser {
 			_lthane: LessThanOrEqual(value),
 			_mthane: MoreThanOrEqual(value),
 			_equal: Equal(value),
-			_like: Like(value),
-			_start: Like(value),
-			_end: Like(value),
-			_between: Between(value),
+			_like: Like(`%${value}%`),
+			_start: Like(`${value}%`),
+			_end: Like(`%${value}`),
+			_between: Between(...value),
 			_in: In(value),
 			_any: Any(value),
 			_isnull: IsNull(value),
 			_notin: Not(In(value)),
-			_notnull: Not(IsNull(value)),
+			_notnull: Not(IsNull()),
 			_notequal: Not(Equal(value)),
 		};
 
@@ -105,7 +109,6 @@ class QueryParser {
 		if (!filter) {
 			return false;
 		}
-
 		if (Array.isArray(filter)) {
 			filter.forEach(item => {
 				const splitedItem = item.split('.');
