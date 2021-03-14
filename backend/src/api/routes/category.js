@@ -18,9 +18,28 @@ module.exports = app => {
 		}
 	});
 
-	route.get('/', async (request, response, next) => {
+	route.get('/', hasRole(['*', permissions.selectCategory]), async (request, response, next) => {
 		try {
-			return response.status(201).json({});
+			const result = await getCategories(request);
+			return response.status(200).json({ message: result });
+		} catch (error) {
+			return next(error);
+		}
+	});
+
+	route.put('/', hasRole(['*', permissions.editCategory]), async (request, response, next) => {
+		try {
+			await updateCategory(request);
+			return response.status(200).json({ message: httpStatusCodes[200] });
+		} catch (error) {
+			return next(error);
+		}
+	});
+
+	route.delete('/', hasRole(['*', permissions.deleteCategory]), async (request, response, next) => {
+		try {
+			await deleteCategory(request);
+			return response.status(200).json({ message: httpStatusCodes[200] });
 		} catch (error) {
 			return next(error);
 		}

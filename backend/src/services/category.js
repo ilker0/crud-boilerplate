@@ -1,40 +1,102 @@
-const { createCategorySchema } = require('../validations/category');
-const { create, selectOne } = require('../database/repositories/category');
+const { createCategorySchema, updateCategorySchema, deleteCategorySchema } = require('../validations/category');
+const { create, update, selectOne, deleteOne, selectAll } = require('../database/repositories/category');
 const errorHandler = require('../utils/errorHandler');
-const bcrypt = require('bcrypt');
-const { wrong, blocked, alreadyHave } = require('../utils/errors');
-const jwt = require('jsonwebtoken');
-const config = require('../config');
+const { alreadyHave, notFound } = require('../utils/errors');
+const queryParser = require('../utils/queryParser');
 
 class CategoryService {
-  createCategory = async request => {
-    try {
-      const { body: data } = request;
-      const { error } = createCategorySchema.validate(data);
+	createCategory = async request => {
+		try {
+			const { body: data, user } = request;
+			const { error } = createCategorySchema.validate(data);
 
-      if (error) {
-        throw { name: 'ValidationError', message: `${error.details.map(x => x.message).join(', ')}` };
-      }
+			if (error) {
+				throw { name: 'ValidationError', message: `${error.details.map(x => x.message).join(', ')}` };
+			}
 
-      const { name } = data;
-      const category = await selectOne({ name });
+			const { name } = data;
 
-      if (category) {
-        throw { name: 'RequestError', message: alreadyHave('NAME') };
-      }
+			data.user = user.id;
 
-      const result = await create(data);
-      return result;
-    } catch (error) {
-      throw errorHandler(error);
-    }
-  };
+			const category = await selectOne({ name });
 
-  getCategories = async () => {};
+			if (category) {
+				throw { name: 'RequestError', message: alreadyHave('NAME') };
+			}
 
-  updateCategory = async () => {};
+			const result = await create(data);
+			return result;
+		} catch (error) {
+			throw errorHandler(error);
+		}
+	};
 
-  deleteCategory = async () => {};
+	getCategories = async request => {
+		try {
+			const { query } = request;
+			const parsedQuery = queryParser.parseQuery(query);
+			const result = await selectAll(parsedQuery);
+			console.log(parsedQuery)
+
+			return {
+				data: result[0] || [],
+				count: result[1] || 0,
+			};
+		} catch (error) {
+			console.log(error);
+			throw errorHandler(error);
+		}
+	};
+
+	updateCategory = async request => {
+		try {
+			const { body: data, user } = request;
+			const { error } = updateCategorySchema.validate(data);
+
+			if (error) {
+				throw { name: 'ValidationError', message: `${error.details.map(x => x.message).join(', ')}` };
+			}
+
+			const { id } = data;
+
+			data.user = user.id;
+
+			const category = await selectOne({ id });
+
+			if (!category) {
+				throw { name: 'RequestError', message: notFound('CATEGORY') };
+			}
+
+			const result = await update(data, { id });
+			return result;
+		} catch (error) {
+			throw errorHandler(error);
+		}
+	};
+
+	deleteCategory = async request => {
+		try {
+			const { query: data } = request;
+
+			const { error } = deleteCategorySchema.validate(data);
+
+			if (error) {
+				throw { name: 'ValidationError', message: `${error.details.map(x => x.message).join(', ')}` };
+			}
+
+			const { id } = data;
+			const category = await selectOne({ id });
+
+			if (!category) {
+				throw { name: 'RequestError', message: notFound('CATEGORY') };
+			}
+
+			const result = await deleteOne({ id });
+			return result;
+		} catch (error) {
+			throw errorHandler(error);
+		}
+	};
 }
 
 module.exports = new CategoryService();
