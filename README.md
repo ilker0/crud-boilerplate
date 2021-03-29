@@ -5,7 +5,7 @@
  - Will be open to continuous improvement.
  -  Don't hesitate to contribute :)
 
-# Technology stack
+## Technology stack
 
 - Node.js
 - Express.js
