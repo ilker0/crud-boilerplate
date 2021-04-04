@@ -1,0 +1,17 @@
+.not_auth_layout {
+  &--left {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &--right {
+    top: 0;
+    right: 0;
+    width: 650px;
+    height: 100%;
+    position: fixed;
+    background-color: #F4F7FD;
+  }
+}
