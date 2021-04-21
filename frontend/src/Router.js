@@ -26,36 +26,30 @@ export default () => {
           component={(props) => <DefaultLayout {...props} component={Roles} />}
         />
         <PrivateRoute
-          exact
           path={`${config.pathname}/roles`}
           component={(props) => <DefaultLayout {...props} component={Roles} />}
         />
         <PrivateRoute
-          exact
           path={`${config.pathname}/categories`}
           component={(props) => (
             <DefaultLayout {...props} component={Categories} />
           )}
         />
         <PrivateRoute
-          exact
           path={`${config.pathname}/products`}
           component={(props) => (
             <DefaultLayout {...props} component={Products} />
           )}
         />
         <PrivateRoute
-          exact
           path={`${config.pathname}/users`}
           component={(props) => <DefaultLayout {...props} component={Users} />}
         />
         <PublicRoute
-          exact
           path={`${config.pathname}/auth`}
           component={(props) => <NotAuthLayout {...props} component={Auth} />}
         />
         <PublicRoute
-          exact
           path="*"
           component={(props) => (
             <NotAuthLayout {...props} component={NotFound} />

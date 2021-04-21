@@ -1,6 +1,5 @@
 import React from 'react';
 import { Input, Button, Row, Col, Form } from 'antd';
-import { KeyOutlined } from '@ant-design/icons';
 
 export function ResetPasswordPage() {
   const onSubmit = (values) => {
@@ -25,23 +24,23 @@ export function ResetPasswordPage() {
             name="password"
             rules={[{ required: true, message: 'Please input your password!' }]}
           >
-            <Input.Password prefix={<KeyOutlined />} />
+            <Input.Password />
           </Form.Item>
         </Col>
 
         <Col span={24} className="u-m-t-1">
           <Form.Item
-            label="Password"
+            label="Password Again"
             name="password"
             rules={[{ required: true, message: 'Please input your password!' }]}
           >
-            <Input.Password prefix={<KeyOutlined />} />
+            <Input.Password />
           </Form.Item>
         </Col>
 
         <Col span={24}>
           <Button type="primary" className="w-100 u-m-t-1" htmlType="submit">
-            Onayla
+            Submit
           </Button>
         </Col>
       </Row>
