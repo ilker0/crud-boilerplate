@@ -1,14 +1,20 @@
 import React from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch } from 'react-router-dom';
 import { LoginPage } from 'Auth/Pages/Login';
+import { ResetPasswordPage } from 'Auth/Pages/ResetPassword';
+import { PublicRoute } from 'Shared/Hoc';
 
 export default ({ match }) => {
   const { url } = match;
 
   return (
     <Switch>
-      <Route path={`${url}/`} component={LoginPage} />
-      <Route path={`${url}/login`} component={LoginPage} />
+      <PublicRoute path={`${url}/`} component={LoginPage} />
+      <PublicRoute path={`${url}/login`} component={LoginPage} />
+      <PublicRoute
+        path={`${url}/reset-password`}
+        component={ResetPasswordPage}
+      />
     </Switch>
   );
 };

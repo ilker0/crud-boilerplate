@@ -28,7 +28,6 @@ export function LoginPage() {
             <Input prefix={<UserOutlined />} />
           </Form.Item>
         </Col>
-
         <Col span={24} className="u-m-t-1">
           <Form.Item
             label="Password"
@@ -38,7 +37,6 @@ export function LoginPage() {
             <Input.Password prefix={<KeyOutlined />} />
           </Form.Item>
         </Col>
-
         <Col span={24} className="u-m-t-1">
           <Form.Item label="Language" name="language">
             <Select defaultValue="en">
@@ -47,7 +45,6 @@ export function LoginPage() {
             </Select>
           </Form.Item>
         </Col>
-
         <Col span={24}>
           <Button type="primary" className="w-100 u-m-t-1" htmlType="submit">
             Sign In

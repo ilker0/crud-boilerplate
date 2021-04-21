@@ -4,7 +4,7 @@ import { LoadingOutlined } from '@ant-design/icons';
 import Router from './Router';
 
 function App() {
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     setTimeout(() => {

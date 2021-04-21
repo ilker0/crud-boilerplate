@@ -1,19 +1,17 @@
 import React from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Switch } from 'react-router-dom';
 import config from 'Config';
 
+// Router
+import { PrivateRoute, PublicRoute } from 'Shared/Hoc';
+
 // Pages
-import { PrivateRoute } from 'Shared/Hoc';
 import Auth from 'Auth/Routes';
 import Roles from 'Roles/Routes';
 import Categories from 'Categories/Routes';
 import Products from 'Products/Routes';
 import Users from 'Users/Routes';
+import { NotFound } from 'Shared/Components';
 
 // Layouts
 import { DefaultLayout, NotAuthLayout } from 'Shared/Layouts';
@@ -22,6 +20,11 @@ export default () => {
   return (
     <Router>
       <Switch>
+        <PrivateRoute
+          exact
+          path={`${config.pathname}/`}
+          component={(props) => <DefaultLayout {...props} component={Roles} />}
+        />
         <PrivateRoute
           exact
           path={`${config.pathname}/roles`}
@@ -46,12 +49,18 @@ export default () => {
           path={`${config.pathname}/users`}
           component={(props) => <DefaultLayout {...props} component={Users} />}
         />
-        <Route
+        <PublicRoute
           exact
           path={`${config.pathname}/auth`}
-          render={(props) => <NotAuthLayout {...props} component={Auth} />}
+          component={(props) => <NotAuthLayout {...props} component={Auth} />}
         />
-        <Redirect to={`${config.pathname}/auth`} />
+        <PublicRoute
+          exact
+          path="*"
+          component={(props) => (
+            <NotAuthLayout {...props} component={NotFound} />
+          )}
+        />
       </Switch>
     </Router>
   );
