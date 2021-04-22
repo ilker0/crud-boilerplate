@@ -4,20 +4,22 @@ import { UserOutlined, KeyOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { changeLanguage, defaultLanguage } from 'Shared/Utils';
-import { useSelector } from 'react-redux';
+import { CallLogin } from 'Auth/Actions/LoginActions';
+import { useSelector, useDispatch } from 'react-redux';
 
 function LoginPage() {
   const { t, i18n } = useTranslation();
+  const dispatch = useDispatch();
   const LoginState = useSelector((state) => {
     const {
       AuthReducer: { LoginReducer },
     } = state;
+
     return LoginReducer;
   });
 
   const onSubmit = (values) => {
-    console.log('Success:', values);
-    console.log(LoginState);
+    dispatch(CallLogin(values));
   };
 
   const handleLanguage = (val) => {
@@ -26,6 +28,7 @@ function LoginPage() {
 
   return (
     <Form
+      validateTrigger="onBlur"
       layout="vertical"
       name="login"
       className="flex items-center justify-center login_page-container"
@@ -57,7 +60,7 @@ function LoginPage() {
         </Col>
         <Col span={24} className="u-m-t-1">
           <Form.Item label={t('AUTH.LANGUAGE')} name="language">
-            <Select defaultValue="en" onChange={handleLanguage}>
+            <Select onChange={handleLanguage}>
               <Select.Option value="en">English</Select.Option>
               <Select.Option value="tr">Türkçe</Select.Option>
             </Select>

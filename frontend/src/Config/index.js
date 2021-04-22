@@ -3,4 +3,6 @@ export default {
   pageTitle: process.env.REACT_APP_PAGE_TITLE,
   client: process.env.REACT_APP_CLIENT,
   publicUrl: process.env.PUBLIC_URL,
+  //
+  AUTH_API: process.env.REACT_APP_AUTH_API,
 };
