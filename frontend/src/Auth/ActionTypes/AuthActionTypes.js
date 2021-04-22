@@ -1,0 +1,1 @@
+export const SET_LOGIN_LOADING = 'LOGIN/LOADING';

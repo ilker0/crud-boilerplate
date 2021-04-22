@@ -1,0 +1,14 @@
+{
+  "AUTH": {
+    "WELCOMETO": "Welcome to",
+    "USERNAME": "Username",
+    "PASSWORD": "Password",
+    "PASSWORDAGAIN": "Password Again",
+    "SIGNIN": "Sign in",
+    "LANGUAGE": "Language",
+    "FORGOTPASSWORD": "Forgot password ?",
+    "EMAIL": "E-Mail",
+    "SUBMIT": "Submit",
+    "RESETPASSWORD": "Reset password"
+  }
+}

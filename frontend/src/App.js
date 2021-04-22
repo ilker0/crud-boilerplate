@@ -1,28 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { Spin } from 'antd';
-import { LoadingOutlined } from '@ant-design/icons';
+import React from 'react';
+import './i18n';
 import Router from './Router';
 
 function App() {
-  const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setLoading(false);
-    }, 2000);
-  });
-
-  return (
-    <>
-      {loading && (
-        <Spin tip="Loading" indicator={<LoadingOutlined />}>
-          <Router />
-        </Spin>
-      )}
-
-      {!loading && <Router />}
-    </>
-  );
+  return <Router />;
 }
 
 export default App;

@@ -1,0 +1,14 @@
+{
+  "AUTH": {
+    "WELCOMETO": "Hoşgeldiniz",
+    "USERNAME": "Kullanıcı Adı",
+    "PASSWORD": "Parola",
+    "PASSWORDAGAIN": "Parola Tekrar",
+    "SIGNIN": "Giriş yap",
+    "LANGUAGE": "Dil",
+    "FORGOTPASSWORD": "Parolamı unuttum ?",
+    "EMAIL": "E-Mail",
+    "SUBMIT": "Gönder",
+    "RESETPASSWORD": "Parola sıfırlama"
+  }
+}

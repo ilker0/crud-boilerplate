@@ -1,8 +1,9 @@
 import React from 'react';
 import { Input, Button, Row, Col, Form } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { MailOutlined } from '@ant-design/icons';
 
-function ResetPasswordPage() {
+function ForgotPasswordPage() {
   const { t } = useTranslation();
 
   const onSubmit = (values) => {
@@ -18,28 +19,16 @@ function ResetPasswordPage() {
     >
       <Row>
         <Col span={24}>
-          <h1>{t('AUTH.RESETPASSWORD')}</h1>
+          <h1>{t('AUTH.FORGOTPASSWORD')}</h1>
         </Col>
 
         <Col span={24} className="u-m-t-1">
           <Form.Item
-            label={t('AUTH.PASSWORD')}
-            name="password"
-            rules={[{ required: true, message: 'Please input your password!' }]}
+            label={t('AUTH.EMAIL')}
+            name="email"
+            rules={[{ required: true, message: 'Please input your email!' }]}
           >
-            <Input.Password />
-          </Form.Item>
-        </Col>
-
-        <Col span={24} className="u-m-t-1">
-          <Form.Item
-            label={t('AUTH.PASSWORDAGAIN')}
-            name="passwordAgain"
-            rules={[
-              { required: true, message: 'Please input your password again!' },
-            ]}
-          >
-            <Input.Password />
+            <Input prefix={<MailOutlined />} />
           </Form.Item>
         </Col>
 
@@ -53,4 +42,4 @@ function ResetPasswordPage() {
   );
 }
 
-export { ResetPasswordPage };
+export { ForgotPasswordPage };
