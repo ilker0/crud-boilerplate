@@ -10,5 +10,11 @@
     "EMAIL": "E-Mail",
     "SUBMIT": "Submit",
     "RESETPASSWORD": "Reset password"
+  },
+  "GENERAL": {
+    "UNSUCCESSFUL": "Unsuccessful"
+  },
+  "ERRORS": {
+    "ERR_WRONG_USERNAME_OR_PASSWORD": "Wrong username or password"
   }
 }

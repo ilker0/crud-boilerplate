@@ -1,7 +1,7 @@
 import React from 'react';
-import { Input, Button, Row, Col, Form, Select } from 'antd';
+import { Input, Button, Row, Col, Form, Select, notification } from 'antd';
 import { UserOutlined, KeyOutlined } from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { changeLanguage, defaultLanguage } from 'Shared/Utils';
 import { CallLogin } from 'Auth/Actions/LoginActions';
@@ -17,9 +17,21 @@ function LoginPage() {
 
     return LoginReducer;
   });
+  const history = useHistory();
 
-  const onSubmit = (values) => {
-    dispatch(CallLogin(values));
+  const onSubmit = async (values) => {
+    try {
+      const result = await dispatch(CallLogin(values));
+      localStorage.setItem('userToken', result.accessToken);
+      localStorage.setItem('refreshToken', result.refreshToken);
+
+      history.push('/');
+    } catch (error) {
+      notification.error({
+        message: t('GENERAL.UNSUCCESSFUL'),
+        description: t(`ERRORS.${error.message}`),
+      });
+    }
   };
 
   const handleLanguage = (val) => {
@@ -67,7 +79,7 @@ function LoginPage() {
           </Form.Item>
         </Col>
         <Col span={24} className="flex justify-end u-m-b-2">
-          <Link to="/auth/reset-password"> {t('AUTH.FORGOTPASSWORD')}</Link>
+          <Link to="/auth/forgot-password"> {t('AUTH.FORGOTPASSWORD')}</Link>
         </Col>
         <Col span={24}>
           <Button

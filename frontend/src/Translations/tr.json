@@ -10,5 +10,11 @@
     "EMAIL": "E-Mail",
     "SUBMIT": "Gönder",
     "RESETPASSWORD": "Parola sıfırlama"
+  },
+  "GENERAL": {
+    "UNSUCCESSFUL": "Başarısız"
+  },
+  "ERRORS": {
+    "ERR_WRONG_USERNAME_OR_PASSWORD": "Yanlış kullanıcı adı veya parola"
   }
 }

@@ -6,12 +6,13 @@ export const CallLogin = (values) => async (dispatch) => {
     dispatch(setLoading(true));
 
     const { username, password } = values;
-    await loginRequest({ username, password });
+    const data = await loginRequest({ username, password });
 
     dispatch(setLoading(false));
+    return data.message;
   } catch (error) {
     dispatch(setLoading(false));
-    return error;
+    throw error;
   }
 };
 
