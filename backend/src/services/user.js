@@ -1,8 +1,8 @@
-const { loginSchema, registerSchema } = require('../validations/user');
+const { loginSchema, registerSchema, resetPasswordSchema } = require('../validations/user');
 const { create, selectOne, update } = require('../database/repositories/user');
 const errorHandler = require('../utils/errorHandler');
 const bcrypt = require('bcrypt');
-const { wrong, blocked, alreadyHave } = require('../utils/errors');
+const { wrong, blocked, alreadyHave, notFound } = require('../utils/errors');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
 
@@ -73,14 +73,14 @@ class UserService {
 		}
 	};
 
-	registerSave = async data => {
+	userSave = async data => {
 		data.password = await this.hashPassword(data.password);
 		const result = await create(data);
 
 		return result;
 	};
 
-	register = async request => {
+	createUser = async request => {
 		try {
 			const { body: data } = request;
 			const { error } = registerSchema.validate(data);
@@ -95,10 +95,48 @@ class UserService {
 				throw { name: 'RequestError', message: alreadyHave('USERNAME') };
 			}
 
-			data.role = 'EDITOR';
-			const result = await this.registerSave(data);
+			const result = await this.userSave(data);
 
 			return result;
+		} catch (error) {
+			throw errorHandler(error);
+		}
+	};
+
+	refreshToken = async request => {
+		try {
+			const { body: data } = request;
+			const { id } = data;
+			const user = await selectOne({ id });
+
+			if (data.token !== user.currentHashedRefreshToken) {
+				throw { name: 'RequestError', message: wrong('SESSION_EXPIRED') };
+			}
+
+			const generatedToken = await this.tokenSign(user);
+			return generatedToken;
+		} catch (error) {
+			throw errorHandler(error);
+		}
+	};
+
+	resetPassword = async request => {
+		try {
+			const { body: data } = request;
+			const { error } = resetPasswordSchema.validate(data);
+
+			if (error) {
+				throw { name: 'ValidationError', message: `${error.details.map(x => x.message).join(', ')}` };
+			}
+
+			const { email } = data;
+			const user = await selectOne({ email });
+
+			if (!user) {
+				throw { name: 'RequestError', message: notFound('USER') };
+			}
+
+			return 'email';
 		} catch (error) {
 			throw errorHandler(error);
 		}

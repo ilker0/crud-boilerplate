@@ -20,6 +20,10 @@ module.exports = new EntitySchema({
 			type: 'varchar',
 			unique: true,
 		},
+		email: {
+			type: 'varchar',
+			unique: true,
+		},
 		password: {
 			type: 'varchar',
 		},
