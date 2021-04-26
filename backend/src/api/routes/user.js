@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const { login, createUser, refreshToken: refreshTokenService, resetPassword } = require('../../services/user');
+const { login, createUser, refreshToken: refreshTokenService, forgotPassword } = require('../../services/user');
 const httpStatusCodes = require('../../utils/httpStatusCodes');
 const { refreshToken: refreshTokenMiddleware } = require('../middlewares');
 
@@ -35,9 +35,9 @@ module.exports = app => {
 		}
 	});
 
-	route.post('/reset-password', async (request, response, next) => {
+	route.post('/forgot-password', async (request, response, next) => {
 		try {
-			await resetPassword(request);
+			await forgotPassword(request);
 			return response.status(200).json({ message: 'Email gönderildi' });
 		} catch (error) {
 			return next(error);

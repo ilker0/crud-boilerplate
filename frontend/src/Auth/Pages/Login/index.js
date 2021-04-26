@@ -21,10 +21,7 @@ function LoginPage() {
 
   const onSubmit = async (values) => {
     try {
-      const result = await dispatch(CallLogin(values));
-      localStorage.setItem('userToken', result.accessToken);
-      localStorage.setItem('refreshToken', result.refreshToken);
-
+      await dispatch(CallLogin(values));
       history.push('/');
     } catch (error) {
       notification.error({

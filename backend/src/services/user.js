@@ -1,4 +1,4 @@
-const { loginSchema, registerSchema, resetPasswordSchema } = require('../validations/user');
+const { loginSchema, registerSchema, forgotPasswordSchema } = require('../validations/user');
 const { create, selectOne, update } = require('../database/repositories/user');
 const errorHandler = require('../utils/errorHandler');
 const bcrypt = require('bcrypt');
@@ -120,10 +120,10 @@ class UserService {
 		}
 	};
 
-	resetPassword = async request => {
+	forgotPassword = async request => {
 		try {
 			const { body: data } = request;
-			const { error } = resetPasswordSchema.validate(data);
+			const { error } = forgotPasswordSchema.validate(data);
 
 			if (error) {
 				throw { name: 'ValidationError', message: `${error.details.map(x => x.message).join(', ')}` };

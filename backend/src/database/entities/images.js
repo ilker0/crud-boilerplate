@@ -1,7 +1,7 @@
 const EntitySchema = require('typeorm').EntitySchema;
 
 module.exports = new EntitySchema({
-	name: 'Product',
+	name: 'Images',
 	columns: {
 		id: {
 			type: 'uuid',
@@ -12,16 +12,12 @@ module.exports = new EntitySchema({
 		},
 		name: {
 			type: 'varchar',
-			unique: true,
 		},
-		description: {
-			type: 'text',
-		},
-		price: {
+		path: {
 			type: 'varchar',
 		},
-		priceType: {
-			type: 'text',
+		type: {
+			type: 'varchar',
 		},
 		isActive: {
 			type: 'enum',
@@ -36,18 +32,6 @@ module.exports = new EntitySchema({
 			type: 'timestamp',
 			default: () => 'CURRENT_TIMESTAMP(6)',
 			onUpdate: 'CURRENT_TIMESTAMP(6)',
-		},
-	},
-	relations: {
-		user: {
-			target: 'User',
-			type: 'many-to-one',
-			cascade: true,
-		},
-		category: {
-			target: 'Category',
-			type: 'many-to-one',
-			cascade: true,
 		},
 	},
 });
