@@ -5,6 +5,7 @@ const bcrypt = require('bcrypt');
 const { wrong, blocked, alreadyHave, notFound } = require('../utils/errors');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
+const Publisher = require('../loaders/rabbitMQ/publisher');
 
 class UserService {
 	hashPassword = async password => {
@@ -45,6 +46,7 @@ class UserService {
 		try {
 			const { body: data } = request;
 			const { error } = loginSchema.validate(data);
+
 			if (error) {
 				throw { name: 'ValidationError', message: `${error.details.map(x => x.message).join(', ')}` };
 			}
@@ -84,6 +86,7 @@ class UserService {
 		try {
 			const { body: data } = request;
 			const { error } = registerSchema.validate(data);
+
 			if (error) {
 				throw { name: 'ValidationError', message: `${error.details.map(x => x.message).join(', ')}` };
 			}
@@ -135,6 +138,8 @@ class UserService {
 			if (!user) {
 				throw { name: 'RequestError', message: notFound('USER') };
 			}
+
+			new Publisher().sendQueue();
 
 			return 'email';
 		} catch (error) {
