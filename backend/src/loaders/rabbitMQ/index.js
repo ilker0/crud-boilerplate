@@ -1,7 +1,7 @@
-const Consumers = require('./consumers');
+const Consumer = require('./consumer');
 const EmailService = require('../../services/email');
 
 module.exports = () => {
-	const consumer = new Consumers();
+	const consumer = new Consumer();
 	consumer.setConsumer('hello', EmailService.sendEmail);
 };

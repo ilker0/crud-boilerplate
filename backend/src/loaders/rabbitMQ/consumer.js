@@ -1,7 +1,7 @@
 const ConnectionBase = require('./connection');
 const logger = require('../logger');
 
-class Consumers {
+class Consumer {
 	constructor() {
 		this.connection = ConnectionBase.connection;
 		this.channel = ConnectionBase.channel;
@@ -24,4 +24,4 @@ class Consumers {
 	}
 }
 
-module.exports = Consumers;
+module.exports = Consumer;
