@@ -16,6 +16,8 @@ module.exports = {
 	jwtRefreshSecret: process.env.JWT_REFRESH_SECRET,
 	jwtExpire: process.env.JWT_EXPIRE,
 	jwtRefreshExpire: process.env.JWT_REFRESH_EXPIRE,
+	jwtResetPassSecret: process.env.JWT_RESET_PASS_SECRET,
+	jwtResetPassExpire: process.env.JWT_RESET_PASS_EXPIRE,
 
 	logs: {
 		level: process.env.LOG_LEVEL || 'silly',
@@ -43,4 +45,12 @@ module.exports = {
 		synchronize: true,
 	},
 	rabbitMQUrl: process.env.RABBIT_MQ_URL,
+	clientUrl: process.env.CLIENT_URL,
+	email: {
+		host: process.env.EMAIL_HOST,
+		port: process.env.EMAIL_PORT,
+		from: process.env.EMAIL_FROM,
+		user: process.env.EMAIL_USER,
+		password: process.env.EMAIL_PASSWORD,
+	},
 };

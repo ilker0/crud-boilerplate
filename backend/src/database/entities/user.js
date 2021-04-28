@@ -31,6 +31,10 @@ module.exports = new EntitySchema({
 			type: 'varchar',
 			nullable: true,
 		},
+		currentHashedResetPassToken: {
+			type: 'varchar',
+			nullable: true,
+		},
 		isActive: {
 			type: 'enum',
 			default: 1,

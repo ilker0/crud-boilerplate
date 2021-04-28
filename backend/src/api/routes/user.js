@@ -1,7 +1,7 @@
 const { Router } = require('express');
 const { login, createUser, refreshToken: refreshTokenService, forgotPassword } = require('../../services/user');
 const httpStatusCodes = require('../../utils/httpStatusCodes');
-const { refreshToken: refreshTokenMiddleware } = require('../middlewares');
+const { refreshToken: refreshTokenMiddleware, resetPassword: resetPasswordTokenMiddleware } = require('../middlewares');
 
 const route = Router();
 
@@ -38,7 +38,24 @@ module.exports = app => {
 	route.post('/forgot-password', async (request, response, next) => {
 		try {
 			await forgotPassword(request);
-			return response.status(200).json({ message: 'Email gönderildi' });
+			return response.status(200).json({ message: httpStatusCodes[200] });
+		} catch (error) {
+			return next(error);
+		}
+	});
+
+	route.post('/reset-password', resetPasswordTokenMiddleware, async (request, response, next) => {
+		try {
+			await forgotPassword(request);
+			return response.status(200).json({ message: httpStatusCodes[200] });
+		} catch (error) {
+			return next(error);
+		}
+	});
+
+	route.post('/resettoken-check', resetPasswordTokenMiddleware, async (request, response, next) => {
+		try {
+			return response.status(200).json({ message: httpStatusCodes[200] });
 		} catch (error) {
 			return next(error);
 		}

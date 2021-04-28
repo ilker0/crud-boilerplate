@@ -5,7 +5,7 @@ const bcrypt = require('bcrypt');
 const { wrong, blocked, alreadyHave, notFound } = require('../utils/errors');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
-const Publisher = require('../loaders/rabbitMQ/publisher');
+const rabbitMQ = require('../loaders/rabbitMQ');
 
 class UserService {
 	hashPassword = async password => {
@@ -123,6 +123,34 @@ class UserService {
 		}
 	};
 
+	generateForgotPassToken = async payload => {
+		const token = await jwt.sign({ email: payload.email }, config.jwtResetPassSecret, {
+			expiresIn: config.jwtResetPassExpire,
+		});
+
+		update({ currentHashedResetPassToken: token }, { id: payload.id });
+
+		return token;
+	};
+
+	forgotPasswordEmailPublish = async data => {
+		try {
+			const token = await this.generateForgotPassToken(data);
+
+			rabbitMQ.publish(
+				'email',
+				JSON.stringify({
+					emailTemplateName: 'forgotPassword',
+					emailTemplateData: { href: config.clientUrl + 'auth/reset-password/', code: token },
+					to: data.email,
+					subject: 'Password reset',
+				}),
+			);
+		} catch (error) {
+			throw errorHandler(error);
+		}
+	};
+
 	forgotPassword = async request => {
 		try {
 			const { body: data } = request;
@@ -139,9 +167,9 @@ class UserService {
 				throw { name: 'RequestError', message: notFound('USER') };
 			}
 
-			new Publisher().sendQueue();
+			this.forgotPasswordEmailPublish(user);
 
-			return 'email';
+			return true;
 		} catch (error) {
 			throw errorHandler(error);
 		}
