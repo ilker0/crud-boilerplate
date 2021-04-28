@@ -12,9 +12,12 @@
     "RESETPASSWORD": "Reset password"
   },
   "GENERAL": {
-    "UNSUCCESSFUL": "Unsuccessful"
+    "SUCCESSFUL": "Successful",
+    "UNSUCCESSFUL": "Unsuccessful",
+    "EMAILSENTSUCCESS": "E-mail sent"
   },
   "ERRORS": {
-    "ERR_WRONG_USERNAME_OR_PASSWORD": "Wrong username or password"
+    "ERR_WRONG_USERNAME_OR_PASSWORD": "Wrong username or password",
+    "ERR_NOT_FOUND_USER": "User not found"
   }
 }

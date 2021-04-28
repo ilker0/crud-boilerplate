@@ -12,9 +12,12 @@
     "RESETPASSWORD": "Parola sıfırlama"
   },
   "GENERAL": {
-    "UNSUCCESSFUL": "Başarısız"
+    "SUCCESSFUL": "Başarılı",
+    "UNSUCCESSFUL": "Başarısız",
+    "EMAILSENTSUCCESS": "E-mail gönderildi"
   },
   "ERRORS": {
-    "ERR_WRONG_USERNAME_OR_PASSWORD": "Yanlış kullanıcı adı veya parola"
+    "ERR_WRONG_USERNAME_OR_PASSWORD": "Yanlış kullanıcı adı veya parola",
+    "ERR_NOT_FOUND_USER": "Kullanıcı bulunamadı"
   }
 }
