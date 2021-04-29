@@ -47,7 +47,9 @@ function ForgotPasswordPage() {
           <Form.Item
             label={t('AUTH.EMAIL')}
             name="email"
-            rules={[{ required: true, message: 'Please input your email!' }]}
+            rules={[
+              { required: true, message: t('VALIDATIONS.PLEASEINPUTEMAIL') },
+            ]}
           >
             <Input prefix={<MailOutlined />} />
           </Form.Item>

@@ -14,7 +14,17 @@
   "GENERAL": {
     "SUCCESSFUL": "Başarılı",
     "UNSUCCESSFUL": "Başarısız",
-    "EMAILSENTSUCCESS": "E-mail gönderildi"
+    "EMAILSENTSUCCESS": "E-mail gönderildi",
+    "ERROR": "Hata",
+    "INVALIDTRANSACTION": "Geçersiz işlem"
+  },
+  "VALIDATIONS": {
+    "PLEASEINPUTPASSWORD": "Lütfen parola giriniz!",
+    "PLEASEINPUTPASSWORDAGAIN": "Lütfen parolanızı tekrar giriniz!",
+    "PLEASEINPUTUSERNAME": "Lütfen kullanıcı adı giriniz!",
+    "PLEASEINPUTPASSWORD": "Lütfen parola giriniz!",
+    "PLEASEINPUTEMAIL": "Lütfen e-mail giriniz!",
+    "PASSWORDSNOTMATCH": "Parolalar eşleşmiyor!"
   },
   "ERRORS": {
     "ERR_WRONG_USERNAME_OR_PASSWORD": "Yanlış kullanıcı adı veya parola",

@@ -53,7 +53,9 @@ function LoginPage() {
           <Form.Item
             label={t('AUTH.USERNAME')}
             name="username"
-            rules={[{ required: true, message: 'Please input your username!' }]}
+            rules={[
+              { required: true, message: t('VALIDATIONS.PLEASEINPUTUSERNAME') },
+            ]}
           >
             <Input prefix={<UserOutlined />} />
           </Form.Item>
@@ -62,7 +64,9 @@ function LoginPage() {
           <Form.Item
             label={t('AUTH.PASSWORD')}
             name="password"
-            rules={[{ required: true, message: 'Please input your password!' }]}
+            rules={[
+              { required: true, message: t('VALIDATIONS.PLEASEINPUTPASSWORD') },
+            ]}
           >
             <Input.Password prefix={<KeyOutlined />} />
           </Form.Item>

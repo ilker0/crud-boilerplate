@@ -14,7 +14,17 @@
   "GENERAL": {
     "SUCCESSFUL": "Successful",
     "UNSUCCESSFUL": "Unsuccessful",
-    "EMAILSENTSUCCESS": "E-mail sent"
+    "EMAILSENTSUCCESS": "E-mail sent",
+    "ERROR": "Error",
+    "INVALIDTRANSACTION": "Invalid transaction"
+  },
+  "VALIDATIONS": {
+    "PLEASEINPUTPASSWORD": "Please input password!",
+    "PLEASEINPUTPASSWORDAGAIN": "Please input your password again!",
+    "PLEASEINPUTUSERNAME": "Please input username!",
+    "PLEASEINPUTPASSWORD": "Please input password!",
+    "PLEASEINPUTEMAIL": "Please input e-mail!",
+    "PASSWORDSNOTMATCH": "Passwords not match!"
   },
   "ERRORS": {
     "ERR_WRONG_USERNAME_OR_PASSWORD": "Wrong username or password",

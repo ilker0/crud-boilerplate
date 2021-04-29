@@ -26,3 +26,12 @@ export const resetTokenCheckRequest = async (values) => {
     throw error;
   }
 };
+
+export const resetPasswordRequest = async (values) => {
+  try {
+    const result = await authService.post('/reset-password', values);
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
