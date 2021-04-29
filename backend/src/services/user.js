@@ -1,8 +1,8 @@
-const { loginSchema, registerSchema, forgotPasswordSchema } = require('../validations/user');
+const { loginSchema, registerSchema, forgotPasswordSchema, resetPasswordSchema } = require('../validations/user');
 const { create, selectOne, update } = require('../database/repositories/user');
 const errorHandler = require('../utils/errorHandler');
 const bcrypt = require('bcrypt');
-const { wrong, blocked, alreadyHave, notFound } = require('../utils/errors');
+const { wrong, blocked, alreadyHave, notFound, invalid, notMatch } = require('../utils/errors');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
 const rabbitMQ = require('../loaders/rabbitMQ');
@@ -168,6 +168,43 @@ class UserService {
 			}
 
 			this.forgotPasswordEmailPublish(user);
+
+			return true;
+		} catch (error) {
+			throw errorHandler(error);
+		}
+	};
+
+	resetPasswordTokenMatch = async (token, email) => {
+		const user = await selectOne({ email });
+
+		if (!user) {
+			return false;
+		}
+
+		if (token !== user.currentHashedResetPassToken) {
+			return false;
+		}
+
+		return true;
+	};
+
+	resetPassword = async request => {
+		try {
+			const { body: data } = request;
+			const { email, password, passwordagain } = data;
+			const { error } = resetPasswordSchema.validate({ password, passwordagain });
+
+			if (error) {
+				throw { name: 'ValidationError', message: `${error.details.map(x => x.message).join(', ')}` };
+			}
+
+			if (password !== passwordagain) {
+				throw { name: 'RequestError', message: notMatch('PASSWORD') };
+			}
+
+			const hashedPass = await this.hashPassword(data.password);
+			await update({ password: hashedPass, currentHashedResetPassToken: null }, { email });
 
 			return true;
 		} catch (error) {

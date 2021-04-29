@@ -60,8 +60,23 @@ const forgotPasswordSchema = Joi.object({
 		}),
 });
 
+const resetPasswordSchema = Joi.object({
+	password: Joi.string()
+		.required()
+		.messages({
+			'any.required': required('PASSWORD'),
+		}),
+
+	passwordagain: Joi.string()
+		.required()
+		.messages({
+			'any.required': required('PASSWORDAGAIN'),
+		}),
+});
+
 module.exports = {
 	loginSchema,
 	registerSchema,
 	forgotPasswordSchema,
+	resetPasswordSchema,
 };

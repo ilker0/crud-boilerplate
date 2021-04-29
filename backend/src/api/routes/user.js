@@ -1,5 +1,11 @@
 const { Router } = require('express');
-const { login, createUser, refreshToken: refreshTokenService, forgotPassword } = require('../../services/user');
+const {
+	login,
+	createUser,
+	refreshToken: refreshTokenService,
+	forgotPassword,
+	resetPassword,
+} = require('../../services/user');
 const httpStatusCodes = require('../../utils/httpStatusCodes');
 const { refreshToken: refreshTokenMiddleware, resetPassword: resetPasswordTokenMiddleware } = require('../middlewares');
 
@@ -46,7 +52,7 @@ module.exports = app => {
 
 	route.post('/reset-password', resetPasswordTokenMiddleware, async (request, response, next) => {
 		try {
-			await forgotPassword(request);
+			await resetPassword(request);
 			return response.status(200).json({ message: httpStatusCodes[200] });
 		} catch (error) {
 			return next(error);
