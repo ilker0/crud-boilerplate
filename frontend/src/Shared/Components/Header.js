@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Select, Button, Tooltip, Modal } from 'antd';
 import { changeLanguage, defaultLanguage } from 'Shared/Utils';
 import { useTranslation } from 'react-i18next';
@@ -7,12 +7,15 @@ import {
   UserOutlined,
   LogoutOutlined,
   SettingOutlined,
+  MenuOutlined,
+  CloseOutlined,
 } from '@ant-design/icons';
 import HeaderMenu from './HeaderMenu';
 
 export function Header() {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const history = useHistory();
+  const [isVisibleResponsiveMenu, setIsVisibleResponsiveMenu] = useState(false);
 
   const handleLanguage = (val) => {
     changeLanguage(val, i18n);
@@ -20,7 +23,9 @@ export function Header() {
 
   const handleLogout = async () => {
     Modal.confirm({
-      content: 'Çıkış yapmak istediğine emin misin ?',
+      content: t('GENERAL.AREYOUSURE'),
+      okText: t('GENERAL.YES'),
+      cancelText: t('GENERAL.NO'),
       onOk() {
         localStorage.removeItem('userToken');
         setTimeout(() => {
@@ -31,12 +36,26 @@ export function Header() {
     });
   };
 
+  const handleResponsiveMenu = () => {
+    setIsVisibleResponsiveMenu(!isVisibleResponsiveMenu);
+  };
+
   return (
     <header className="header">
       <div className="container">
-        <div className="flex items-center justify-between">
-          <h1 className="u-p-0 u-m-0 header__logo">LOGO</h1>
-          <div>
+        <div className="flex items-center justify-between flex-wrap">
+          <div className="flex items-center">
+            <h1 className="u-p-0 u-m-0 u-m-r-3 header__logo">LOGO</h1>
+            <Button
+              onClick={handleResponsiveMenu}
+              className="u-m-r-3 header__responsive-button"
+            >
+              {isVisibleResponsiveMenu && <CloseOutlined />}
+              {!isVisibleResponsiveMenu && <MenuOutlined />}
+            </Button>
+          </div>
+
+          <div className="flex items-center">
             <Select
               className="u-m-r-3"
               defaultValue={defaultLanguage}
@@ -46,7 +65,7 @@ export function Header() {
               <Select.Option value="tr">Türkçe</Select.Option>
             </Select>
 
-            <Tooltip title="My profile">
+            <Tooltip title={t('GENERAL.MYPROFILE')}>
               <Link to="/profile" className="u-m-r-3">
                 <Button>
                   <UserOutlined />
@@ -54,7 +73,7 @@ export function Header() {
               </Link>
             </Tooltip>
 
-            <Tooltip title="Settings">
+            <Tooltip title={t('GENERAL.SETTINGS')}>
               <Link to="/profile" className="u-m-r-3">
                 <Button>
                   <SettingOutlined />
@@ -62,7 +81,7 @@ export function Header() {
               </Link>
             </Tooltip>
 
-            <Tooltip title="Logout">
+            <Tooltip title={t('AUTH.LOGOUT')}>
               <Button onClick={handleLogout} danger type="primary">
                 <LogoutOutlined />
               </Button>
@@ -70,7 +89,7 @@ export function Header() {
           </div>
         </div>
 
-        <HeaderMenu />
+        <HeaderMenu responsive={isVisibleResponsiveMenu} />
       </div>
     </header>
   );

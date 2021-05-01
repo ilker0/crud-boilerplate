@@ -9,14 +9,29 @@
     "FORGOTPASSWORD": "Parolamı unuttum ?",
     "EMAIL": "E-Mail",
     "SUBMIT": "Gönder",
-    "RESETPASSWORD": "Parola sıfırlama"
+    "RESETPASSWORD": "Parola sıfırlama",
+    "LOGOUT": "Çıkış yap"
   },
   "GENERAL": {
     "SUCCESSFUL": "Başarılı",
     "UNSUCCESSFUL": "Başarısız",
     "EMAILSENTSUCCESS": "E-mail gönderildi",
     "ERROR": "Hata",
-    "INVALIDTRANSACTION": "Geçersiz işlem"
+    "INVALIDTRANSACTION": "Geçersiz işlem",
+    "HOMEPAGE": "Anasayfa",
+    "CATEGORIES": "Kategoriler",
+    "PRODUCTS": "Ürünler",
+    "USERS": "Kullanıcılar",
+    "ROLES": "Roller",
+    "MYPROFILE": "Profilim",
+    "SETTINGS": "Ayarlar",
+    "AREYOUSURE": "Emin misin ?",
+    "OK": "Tamam",
+    "CANCEL": "İptal et",
+    "YES": "Evet",
+    "NO": "Hayır",
+    "PAGENOTFOUND": "Sayfa bulunamadı !",
+    "GOTOHOMEPAGE": "Anasayfaya dön"
   },
   "VALIDATIONS": {
     "PLEASEINPUTPASSWORD": "Lütfen parola giriniz!",

@@ -9,14 +9,29 @@
     "FORGOTPASSWORD": "Forgot password ?",
     "EMAIL": "E-Mail",
     "SUBMIT": "Submit",
-    "RESETPASSWORD": "Reset password"
+    "RESETPASSWORD": "Reset password",
+    "LOGOUT": "Logout"
   },
   "GENERAL": {
     "SUCCESSFUL": "Successful",
     "UNSUCCESSFUL": "Unsuccessful",
     "EMAILSENTSUCCESS": "E-mail sent",
     "ERROR": "Error",
-    "INVALIDTRANSACTION": "Invalid transaction"
+    "INVALIDTRANSACTION": "Invalid transaction",
+    "HOMEPAGE": "Home Page",
+    "CATEGORIES": "Categories",
+    "PRODUCTS": "Products",
+    "USERS": "Users",
+    "ROLES": "Roles",
+    "MYPROFILE": "My profile",
+    "SETTINGS": "Settings",
+    "AREYOUSURE": "Are you sure ?",
+    "OK": "Ok",
+    "CANCEL": "Cancel",
+    "YES": "Yes",
+    "NO": "No",
+    "PAGENOTFOUND": "Page not found !",
+    "GOTOHOMEPAGE": "Go to home page"
   },
   "VALIDATIONS": {
     "PLEASEINPUTPASSWORD": "Please input password!",

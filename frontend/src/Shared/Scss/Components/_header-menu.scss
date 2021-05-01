@@ -3,4 +3,34 @@
   width: 100%;
   top: 40px;
   box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.75);
+
+  @media only screen and (max-width: 780px) {
+    display: none;
+  }
+
+  &__responsive {
+    width: 100%;
+    position: absolute; 
+    top: 60px;
+    left: 0;
+    box-shadow: 0px 0px 1px 0px rgba(0,0,0,0.75);
+    transition: opacity .3s;
+
+    .ant-menu {
+      border: 0 !important;
+    }
+
+    li {
+      padding: 0 !important;
+    }
+
+    @media only screen and (min-width: 780px) {
+      display: none;
+      opacity: 0;
+    }
+
+    @media only screen and (max-width: 517px) {
+      top: 100px;
+    }
+  }
 }

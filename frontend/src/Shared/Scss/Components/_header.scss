@@ -7,7 +7,23 @@
   top: 0;
   width: 100%;
 
+  @media only screen and (max-width: 780px) {
+    height: 60px;
+  }
+
+  @media only screen and (max-width: 517px) {
+    height: 100px;
+  }
+
   &__logo {
     color: #ffffff;
+  }
+
+  &__responsive {
+    &-button {
+      @media only screen and (min-width: 780px) {
+        display: none;
+      }
+    }
   }
 }
