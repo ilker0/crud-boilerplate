@@ -34,14 +34,6 @@ export function CategoryList() {
       address: 'London No. 1 Lake Park',
       tags: ['loser'],
     },
-    {
-      key: '3',
-      firstName: 'Joe',
-      lastName: 'Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park',
-      tags: ['cool', 'teacher'],
-    },
   ];
 
   const exportMenu = (
@@ -85,9 +77,9 @@ export function CategoryList() {
             xs={24}
             sm={24}
             md={24}
-            lg={isVisibleFilters ? 13 : 20}
-            xl={isVisibleFilters ? 18 : 24}
-            className="b-white u-p-4 shadow-primary u-m-l-a"
+            lg={isVisibleFilters ? 14 : 20}
+            xl={isVisibleFilters ? 19 : 24}
+            className="b-white u-p-4 shadow-primary"
           >
             <div className="flex u-m-b-4 justify-between">
               <div>

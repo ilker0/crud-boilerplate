@@ -75,7 +75,7 @@ export function UserList() {
       </Col>
 
       <Col span={24}>
-        <Row gutter={18}>
+        <Row>
           {isVisibleFilters && (
             <Col xs={24} sm={24} md={24} lg={10} xl={5}>
               <UsersFilter />
@@ -86,9 +86,9 @@ export function UserList() {
             xs={24}
             sm={24}
             md={24}
-            lg={isVisibleFilters ? 13 : 20}
-            xl={isVisibleFilters ? 18 : 24}
-            className="b-white u-p-4 shadow-primary u-m-l-a"
+            lg={isVisibleFilters ? 14 : 20}
+            xl={isVisibleFilters ? 19 : 24}
+            className="b-white u-p-4 shadow-primary"
           >
             <div className="flex u-m-b-4 justify-between">
               <div>
