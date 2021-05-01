@@ -12,7 +12,7 @@ import {
 } from '@ant-design/icons';
 import HeaderMenu from './HeaderMenu';
 
-export function Header() {
+export function Header({ routeKey }) {
   const { t, i18n } = useTranslation();
   const history = useHistory();
   const [isVisibleResponsiveMenu, setIsVisibleResponsiveMenu] = useState(false);
@@ -30,7 +30,7 @@ export function Header() {
         localStorage.removeItem('userToken');
         setTimeout(() => {
           history.push('/');
-        }, 1000);
+        }, 500);
       },
       onCancel() {},
     });
@@ -66,7 +66,7 @@ export function Header() {
             </Select>
 
             <Tooltip title={t('GENERAL.MYPROFILE')}>
-              <Link to="/profile" className="u-m-r-3">
+              <Link to="/my-profile" className="u-m-r-3">
                 <Button>
                   <UserOutlined />
                 </Button>
@@ -74,7 +74,7 @@ export function Header() {
             </Tooltip>
 
             <Tooltip title={t('GENERAL.SETTINGS')}>
-              <Link to="/profile" className="u-m-r-3">
+              <Link to="/settings" className="u-m-r-3">
                 <Button>
                   <SettingOutlined />
                 </Button>
@@ -89,7 +89,7 @@ export function Header() {
           </div>
         </div>
 
-        <HeaderMenu responsive={isVisibleResponsiveMenu} />
+        <HeaderMenu routeKey={routeKey} responsive={isVisibleResponsiveMenu} />
       </div>
     </header>
   );

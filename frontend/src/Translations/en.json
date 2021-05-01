@@ -31,7 +31,9 @@
     "YES": "Yes",
     "NO": "No",
     "PAGENOTFOUND": "Page not found !",
-    "GOTOHOMEPAGE": "Go to home page"
+    "GOTOHOMEPAGE": "Go to home page",
+    "GALLERY": "Gallery",
+    "SEARCH": "Search"
   },
   "VALIDATIONS": {
     "PLEASEINPUTPASSWORD": "Please input password!",

@@ -1,13 +1,14 @@
 .default-layout {
   &__content {
-    padding-top: 160px;
+    margin-top: 160px;
+    position: relative;
 
     @media only screen and (max-width: 780px) {
-      padding-top: 80px;
+      margin-top: 80px;
     }
 
     @media only screen and (max-width: 517px) {
-      padding-top: 120px;
+      margin-top: 120px;
     }
   }
 }

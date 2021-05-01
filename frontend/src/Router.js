@@ -6,11 +6,15 @@ import config from 'Config';
 import { PrivateRoute, PublicRoute } from 'Shared/Hoc';
 
 // Pages
+import HomePage from 'HomePage/Routes';
+import Settings from 'Settings/Routes';
 import Auth from 'Auth/Routes';
 import Roles from 'Roles/Routes';
 import Categories from 'Categories/Routes';
 import Products from 'Products/Routes';
+import Gallery from 'Gallery/Routes';
 import Users from 'Users/Routes';
+import Profile from 'Profile/Routes';
 import { NotFound } from 'Shared/Components';
 
 // Layouts
@@ -23,27 +27,72 @@ export default () => {
         <PrivateRoute
           exact
           path={`${config.pathname}/`}
-          component={(props) => <DefaultLayout {...props} component={Roles} />}
+          component={(props) => (
+            <DefaultLayout
+              routeKey="homepage"
+              {...props}
+              component={HomePage}
+            />
+          )}
+        />
+        <PrivateRoute
+          exact
+          path={`${config.pathname}/settings`}
+          component={(props) => (
+            <DefaultLayout
+              routeKey="settings"
+              {...props}
+              component={Settings}
+            />
+          )}
         />
         <PrivateRoute
           path={`${config.pathname}/roles`}
-          component={(props) => <DefaultLayout {...props} component={Roles} />}
+          component={(props) => (
+            <DefaultLayout routeKey="roles" {...props} component={Roles} />
+          )}
         />
         <PrivateRoute
           path={`${config.pathname}/categories`}
           component={(props) => (
-            <DefaultLayout {...props} component={Categories} />
+            <DefaultLayout
+              routeKey="categories"
+              {...props}
+              component={Categories}
+            />
           )}
         />
         <PrivateRoute
           path={`${config.pathname}/products`}
           component={(props) => (
-            <DefaultLayout {...props} component={Products} />
+            <DefaultLayout
+              routeKey="products"
+              {...props}
+              component={Products}
+            />
+          )}
+        />
+        <PrivateRoute
+          path={`${config.pathname}/gallery`}
+          component={(props) => (
+            <DefaultLayout routeKey="gallery" {...props} component={Gallery} />
           )}
         />
         <PrivateRoute
           path={`${config.pathname}/users`}
-          component={(props) => <DefaultLayout {...props} component={Users} />}
+          component={(props) => (
+            <DefaultLayout routeKey="users" {...props} component={Users} />
+          )}
+        />
+        <PrivateRoute
+          path={`${config.pathname}/my-profile`}
+          component={(props) => (
+            <DefaultLayout
+              routeKey="my-profile"
+              {...props}
+              component={Profile}
+            />
+          )}
         />
         <PublicRoute
           path={`${config.pathname}/auth`}

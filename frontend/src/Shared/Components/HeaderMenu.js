@@ -7,90 +7,71 @@ import {
   TagsOutlined,
   TeamOutlined,
   ApiOutlined,
+  PictureOutlined,
 } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 
-export default function HeaderMenu({ responsive }) {
+export default function HeaderMenu({ responsive, routeKey }) {
   const { t } = useTranslation();
+
+  const menuItems = (
+    <>
+      <Menu.Item key="homepage">
+        <Link to="/">
+          <HomeOutlined />
+          {t('GENERAL.HOMEPAGE')}
+        </Link>
+      </Menu.Item>
+
+      <Menu.Item key="categories">
+        <Link to="/categories">
+          <BarsOutlined />
+          {t('GENERAL.CATEGORIES')}
+        </Link>
+      </Menu.Item>
+
+      <Menu.Item key="products">
+        <Link to="/products">
+          <TagsOutlined />
+          {t('GENERAL.PRODUCTS')}
+        </Link>
+      </Menu.Item>
+
+      <Menu.Item key="gallery">
+        <Link to="/gallery">
+          <PictureOutlined />
+          {t('GENERAL.GALLERY')}
+        </Link>
+      </Menu.Item>
+
+      <Menu.Item key="users">
+        <Link to="/users">
+          <TeamOutlined />
+          {t('GENERAL.USERS')}
+        </Link>
+      </Menu.Item>
+
+      <Menu.Item key="roles">
+        <Link to="/roles">
+          <ApiOutlined />
+          {t('GENERAL.ROLES')}
+        </Link>
+      </Menu.Item>
+    </>
+  );
 
   return (
     <>
-      <div
-        className="header-menu__responsive"
-        style={{ opacity: responsive ? '1' : '0' }}
-      >
-        <Menu mode="vertical" className="container">
-          <Menu.Item key="dashboard">
-            <Link to="/">
-              <HomeOutlined />
-              {t('GENERAL.HOMEPAGE')}
-            </Link>
-          </Menu.Item>
+      {responsive && (
+        <div className="header-menu__responsive">
+          <Menu selectedKeys={routeKey} mode="vertical">
+            {menuItems}
+          </Menu>
+        </div>
+      )}
 
-          <Menu.Item key="categories">
-            <Link to="/categories">
-              <BarsOutlined />
-              {t('GENERAL.CATEGORIES')}
-            </Link>
-          </Menu.Item>
-
-          <Menu.Item key="products">
-            <Link to="/products">
-              <TagsOutlined />
-              {t('GENERAL.PRODUCTS')}
-            </Link>
-          </Menu.Item>
-
-          <Menu.Item key="users">
-            <Link to="/user">
-              <TeamOutlined />
-              {t('GENERAL.USERS')}
-            </Link>
-          </Menu.Item>
-
-          <Menu.Item key="roles">
-            <Link to="/roles">
-              <ApiOutlined />
-              {t('GENERAL.ROLES')}
-            </Link>
-          </Menu.Item>
-        </Menu>
-      </div>
-      <Menu mode="horizontal" className="header-menu">
-        <Menu.Item key="dashboard">
-          <Link to="/">
-            <HomeOutlined />
-            {t('GENERAL.HOMEPAGE')}
-          </Link>
-        </Menu.Item>
-
-        <Menu.Item key="categories">
-          <Link to="/categories">
-            <BarsOutlined />
-            {t('GENERAL.CATEGORIES')}
-          </Link>
-        </Menu.Item>
-
-        <Menu.Item key="products">
-          <Link to="/products">
-            <TagsOutlined />
-            {t('GENERAL.PRODUCTS')}
-          </Link>
-        </Menu.Item>
-
-        <Menu.Item key="users">
-          <Link to="/user">
-            <TeamOutlined />
-            {t('GENERAL.USERS')}
-          </Link>
-        </Menu.Item>
-
-        <Menu.Item key="roles">
-          <Link to="/roles">
-            <ApiOutlined />
-            {t('GENERAL.ROLES')}
-          </Link>
-        </Menu.Item>
+      <Menu selectedKeys={routeKey} mode="horizontal" className="header-menu">
+        {menuItems}
       </Menu>
     </>
   );

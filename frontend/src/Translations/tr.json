@@ -31,7 +31,9 @@
     "YES": "Evet",
     "NO": "Hayır",
     "PAGENOTFOUND": "Sayfa bulunamadı !",
-    "GOTOHOMEPAGE": "Anasayfaya dön"
+    "GOTOHOMEPAGE": "Anasayfaya dön",
+    "GALLERY": "Galeri",
+    "SEARCH": "Ara"
   },
   "VALIDATIONS": {
     "PLEASEINPUTPASSWORD": "Lütfen parola giriniz!",
