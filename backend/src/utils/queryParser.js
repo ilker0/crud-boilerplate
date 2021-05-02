@@ -20,22 +20,30 @@ class QueryParser {
 
 	parseQuery(query) {
 		this.requestQuery = query;
+		const queryObject = {};
 
-		return {
-			where: {
-				...this.filterParser(),
-			},
-			order: this.sortParser(),
-			skip: this.skipParser(),
-			take: this.takeParser(),
-		};
+		const whereResult = this.filterParser();
+		const orderResult = this.sortParser();
+
+		if (whereResult) {
+			queryObject.where = whereResult;
+		}
+
+		if (orderResult) {
+			queryObject.order = orderResult;
+		}
+
+		queryObject.skip = this.skipParser();
+		queryObject.take = this.takeParser();
+
+		return queryObject;
 	}
 
 	sortParser() {
 		const { sort } = this.requestQuery;
 
 		if (!sort) {
-			return {};
+			return null;
 		}
 
 		const sortObject = {};
@@ -104,11 +112,14 @@ class QueryParser {
 
 	filterParser() {
 		const { filter } = this.requestQuery;
-		const filterObject = {};
+		const filterObject = null;
 
 		if (!filter) {
 			return false;
 		}
+
+		filterObject = {};
+
 		if (Array.isArray(filter)) {
 			filter.forEach(item => {
 				const splitedItem = item.split('.');

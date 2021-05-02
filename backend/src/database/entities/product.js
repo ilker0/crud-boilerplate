@@ -21,7 +21,9 @@ module.exports = new EntitySchema({
 			type: 'varchar',
 		},
 		priceType: {
-			type: 'text',
+			type: 'enum',
+			default: 1,
+			enum: [0, 1],
 		},
 		isActive: {
 			type: 'enum',

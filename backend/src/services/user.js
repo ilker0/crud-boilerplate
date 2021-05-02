@@ -1,23 +1,13 @@
 const { loginSchema, registerSchema, forgotPasswordSchema, resetPasswordSchema } = require('../validations/user');
 const { create, selectOne, update } = require('../database/repositories/user');
 const errorHandler = require('../utils/errorHandler');
-const bcrypt = require('bcrypt');
-const { wrong, blocked, alreadyHave, notFound, invalid, notMatch } = require('../utils/errors');
+const { wrong, blocked, alreadyHave, notFound, notMatch } = require('../utils/errors');
 const jwt = require('jsonwebtoken');
 const config = require('../config');
 const rabbitMQ = require('../loaders/rabbitMQ');
+const { hashPassword, resolvePassword } = require('../utils/hash');
 
 class UserService {
-	hashPassword = async password => {
-		const result = await bcrypt.hash(password, 10);
-		return result;
-	};
-
-	resolvePassword = async (hashPass, textPlainPass) => {
-		const result = bcrypt.compare(textPlainPass, hashPass);
-		return result;
-	};
-
 	generateToken = async payload => {
 		const token = await jwt.sign({ id: payload.id, username: payload.username, role: payload.role }, config.jwtSecret, {
 			expiresIn: config.jwtExpire,
@@ -62,7 +52,7 @@ class UserService {
 				throw { name: 'RequestError', message: blocked('USER') };
 			}
 
-			const passResolveResult = await this.resolvePassword(user.password, password);
+			const passResolveResult = await resolvePassword(user.password, password);
 
 			if (!passResolveResult) {
 				throw { name: 'RequestError', message: wrong('USERNAME_OR_PASSWORD') };
@@ -76,7 +66,7 @@ class UserService {
 	};
 
 	userSave = async data => {
-		data.password = await this.hashPassword(data.password);
+		data.password = await hashPassword(data.password);
 		const result = await create(data);
 
 		return result;
@@ -203,7 +193,7 @@ class UserService {
 				throw { name: 'RequestError', message: notMatch('PASSWORD') };
 			}
 
-			const hashedPass = await this.hashPassword(data.password);
+			const hashedPass = await hashPassword(data.password);
 			await update({ password: hashedPass, currentHashedResetPassToken: null }, { email });
 
 			return true;
