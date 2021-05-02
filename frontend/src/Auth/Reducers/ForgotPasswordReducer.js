@@ -1,4 +1,4 @@
-import { SET_FORGOT_PASSWOD_LOADING } from 'Auth/ActionTypes/AuthActionTypes';
+import { SET_FORGOT_PASSWOD_LOADING } from 'Auth/Constants/AuthActionTypes';
 
 const initialState = {
   loading: false,

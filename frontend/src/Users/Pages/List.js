@@ -86,9 +86,9 @@ export function UserList() {
             xs={24}
             sm={24}
             md={24}
-            lg={isVisibleFilters ? 14 : 20}
-            xl={isVisibleFilters ? 19 : 24}
-            className="b-white u-p-4 shadow-primary"
+            lg={isVisibleFilters ? 13 : 20}
+            xl={isVisibleFilters ? 18 : 24}
+            className="b-white u-p-4 shadow-primary u-m-l-a"
           >
             <div className="flex u-m-b-4 justify-between">
               <div>

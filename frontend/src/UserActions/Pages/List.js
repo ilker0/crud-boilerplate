@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Row, Col, Button, Tooltip, Table, Select, Dropdown, Menu } from 'antd';
-import { ProductFilter } from 'Products/Components';
+import { UserActionsFilter } from 'UserActions/Components';
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   FileOutlined,
-  PlusOutlined,
 } from '@ant-design/icons';
 
-export function ProductList() {
+export function UserActionList() {
   const { t } = useTranslation();
 
   const [isVisibleFilters, setisVisibleFilters] = useState(true);
@@ -71,14 +70,14 @@ export function ProductList() {
   return (
     <Row>
       <Col span={5} className="flex justify-between items-center u-m-b-5">
-        <h3 className="u-m-0">{t('GENERAL.PRODUCTS')}</h3>
+        <h3 className="u-m-0">{t('GENERAL.USERACTIONS')}</h3>
       </Col>
 
       <Col span={24}>
         <Row>
           {isVisibleFilters && (
             <Col xs={24} sm={24} md={24} lg={10} xl={5}>
-              <ProductFilter />
+              <UserActionsFilter />
             </Col>
           )}
 
@@ -113,10 +112,6 @@ export function ProductList() {
                     Export
                   </Button>
                 </Dropdown>
-                <Button className="u-m-l-3" type="primary">
-                  <PlusOutlined />
-                  New product
-                </Button>
               </div>
 
               <Select style={{ width: 110 }} defaultValue="10">

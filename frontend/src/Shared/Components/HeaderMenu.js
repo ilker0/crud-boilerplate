@@ -8,6 +8,7 @@ import {
   TeamOutlined,
   ApiOutlined,
   PictureOutlined,
+  NodeExpandOutlined,
 } from '@ant-design/icons';
 import { useTranslation } from 'react-i18next';
 
@@ -55,6 +56,13 @@ export default function HeaderMenu({ responsive, routeKey }) {
         <Link to="/roles">
           <ApiOutlined />
           {t('GENERAL.ROLES')}
+        </Link>
+      </Menu.Item>
+
+      <Menu.Item key="user-actions">
+        <Link to="/user-actions">
+          <NodeExpandOutlined />
+          {t('GENERAL.USERACTIONS')}
         </Link>
       </Menu.Item>
     </>

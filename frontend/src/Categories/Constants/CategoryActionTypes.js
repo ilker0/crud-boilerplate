@@ -1,0 +1,3 @@
+export const SET_DATA_LOADING = 'CATEGORY/LOADING';
+export const SET_DATA = 'CATEGORY/DATA';
+export const SET_COUNT = 'CATEGORY/COUNT';

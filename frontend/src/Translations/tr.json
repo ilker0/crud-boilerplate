@@ -33,7 +33,23 @@
     "PAGENOTFOUND": "Sayfa bulunamadı !",
     "GOTOHOMEPAGE": "Anasayfaya dön",
     "GALLERY": "Galeri",
-    "SEARCH": "Ara"
+    "SEARCH": "Ara",
+    "USERACTIONS": "Kullanıcı Hareketleri",
+    "ADDINGUSER": "Ekleyen Kullanıcı",
+    "STATUS": "Durum",
+    "CREATEDDATE": "Oluşturma Tarihi",
+    "TRANSACTIONS": "İşlemler",
+    "PAGE": "Sayfa",
+    "ACTIVE": "Aktif",
+    "PASSIVE": "Pasif",
+    "FILTERS": "Filtreler",
+    "EXPORT": "Çıktı",
+    "DELETE": "Sil",
+    "UPDATE": "Güncelle"
+  },
+  "CATEGORY": {
+    "CATEGORYNAME": "Kategori Adı",
+    "NEWCATEGORY": "Yeni kategori"
   },
   "VALIDATIONS": {
     "PLEASEINPUTPASSWORD": "Lütfen parola giriniz!",

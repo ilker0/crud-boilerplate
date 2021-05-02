@@ -33,7 +33,21 @@
     "PAGENOTFOUND": "Page not found !",
     "GOTOHOMEPAGE": "Go to home page",
     "GALLERY": "Gallery",
-    "SEARCH": "Search"
+    "SEARCH": "Search",
+    "USERACTIONS": "User Actions",
+    "ADDINGUSER": "Adding User",
+    "STATUS": "Status",
+    "CREATEDDATE": "Created Date",
+    "TRANSACTIONS": "Transactions",
+    "PAGE": "Page",
+    "FILTERS": "Filters",
+    "EXPORT": "Export",
+    "DELETE": "Delete",
+    "UPDATE": "Update"
+  },
+  "CATEGORY": {
+    "CATEGORYNAME": "Category Name",
+    "NEWCATEGORY": "New category"
   },
   "VALIDATIONS": {
     "PLEASEINPUTPASSWORD": "Please input password!",

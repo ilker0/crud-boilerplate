@@ -1,4 +1,4 @@
-import { SET_LOGIN_LOADING } from 'Auth/ActionTypes/AuthActionTypes';
+import { SET_LOGIN_LOADING } from 'Auth/Constants/AuthActionTypes';
 import { loginRequest } from 'Auth/Services/Auth';
 
 export const CallLogin = (values) => async (dispatch) => {

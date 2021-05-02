@@ -1,40 +1,44 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Row, Col, Button, Tooltip, Dropdown, Menu, Table, Select } from 'antd';
-import { CategoryFilter } from 'Categories/Components';
+import { Row, Col, Button, Tooltip, Dropdown, Menu, Select } from 'antd';
+import { CategoryFilter, CategoryTable } from 'Categories/Components';
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   FileOutlined,
   PlusOutlined,
 } from '@ant-design/icons';
+import { CallCategories } from 'Categories/Actions/CategoryActions';
+import { useDispatch, useSelector } from 'react-redux';
 
 export function CategoryList() {
   const { t } = useTranslation();
   const [isVisibleFilters, setisVisibleFilters] = useState(true);
+  const dispatch = useDispatch();
+
+  const CategoryListState = useSelector((state) => {
+    const {
+      CategoryReducer: { CategoryReducer },
+    } = state;
+
+    return CategoryReducer;
+  });
 
   const handleFilterVisible = () => {
     setisVisibleFilters(!isVisibleFilters);
   };
 
-  const data = [
-    {
-      key: '1',
-      firstName: 'John',
-      lastName: 'Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      tags: ['nice', 'developer'],
-    },
-    {
-      key: '2',
-      firstName: 'Jim',
-      lastName: 'Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-      tags: ['loser'],
-    },
-  ];
+  const getCategories = async () => {
+    try {
+      await dispatch(CallCategories());
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
+  useEffect(() => {
+    getCategories();
+  }, []);
 
   const exportMenu = (
     <Menu>
@@ -44,7 +48,7 @@ export function CategoryList() {
           rel="noopener noreferrer"
           href="https://www.antgroup.com"
         >
-          Excel file
+          Excel
         </a>
       </Menu.Item>
       <Menu.Item>
@@ -53,7 +57,7 @@ export function CategoryList() {
           rel="noopener noreferrer"
           href="https://www.aliyun.com"
         >
-          Csv file
+          Csv
         </a>
       </Menu.Item>
     </Menu>
@@ -77,15 +81,15 @@ export function CategoryList() {
             xs={24}
             sm={24}
             md={24}
-            lg={isVisibleFilters ? 14 : 20}
-            xl={isVisibleFilters ? 19 : 24}
-            className="b-white u-p-4 shadow-primary"
+            lg={isVisibleFilters ? 13 : 20}
+            xl={isVisibleFilters ? 18 : 24}
+            className="b-white u-p-4 shadow-primary u-m-l-a"
           >
             <div className="flex u-m-b-4 justify-between">
               <div>
                 <Tooltip title={isVisibleFilters ? 'Gizle' : 'Göster'}>
                   <Button onClick={handleFilterVisible}>
-                    Filtreler
+                    {t('GENERAL.FILTERS')}
                     {isVisibleFilters ? (
                       <MenuFoldOutlined />
                     ) : (
@@ -101,29 +105,39 @@ export function CategoryList() {
                 >
                   <Button>
                     <FileOutlined />
-                    Export
+                    {t('GENERAL.EXPORT')}
                   </Button>
                 </Dropdown>
                 <Button className="u-m-l-3" type="primary">
                   <PlusOutlined />
-                  New category
+                  {t('CATEGORY.NEWCATEGORY')}
                 </Button>
               </div>
 
-              <Select style={{ width: 110 }} defaultValue="10">
-                <Select.Option value="10">10 / Page</Select.Option>
-                <Select.Option value="20">20 / Page</Select.Option>
-                <Select.Option value="30">30 / Page</Select.Option>
-                <Select.Option value="40">40 / Page</Select.Option>
-                <Select.Option value="50">50 / Page</Select.Option>
+              <Select style={{ width: 120 }} defaultValue="10">
+                <Select.Option value="10">
+                  10 / {t('GENERAL.PAGE')}
+                </Select.Option>
+                <Select.Option value="20">
+                  20 / {t('GENERAL.PAGE')}
+                </Select.Option>
+                <Select.Option value="30">
+                  30 / {t('GENERAL.PAGE')}
+                </Select.Option>
+                <Select.Option value="40">
+                  40 / {t('GENERAL.PAGE')}
+                </Select.Option>
+                <Select.Option value="50">
+                  50 / {t('GENERAL.PAGE')}
+                </Select.Option>
               </Select>
             </div>
-            <Table dataSource={data} rowSelection>
-              <Table.Column title="Age" dataIndex="age" key="age" />
-              <Table.Column title="Address" dataIndex="address" key="address" />
-              <Table.Column title="Tags" dataIndex="tags" key="tags" />
-              <Table.Column title="Action" key="action" />
-            </Table>
+
+            <CategoryTable
+              data={CategoryListState.data}
+              count={CategoryListState.count}
+              loading={CategoryListState.loading}
+            />
           </Col>
         </Row>
       </Col>

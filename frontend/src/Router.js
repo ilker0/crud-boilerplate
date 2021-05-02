@@ -15,6 +15,7 @@ import Products from 'Products/Routes';
 import Gallery from 'Gallery/Routes';
 import Users from 'Users/Routes';
 import Profile from 'Profile/Routes';
+import UserActions from 'UserActions/Routes';
 import { NotFound } from 'Shared/Components';
 
 // Layouts
@@ -91,6 +92,16 @@ export default () => {
               routeKey="my-profile"
               {...props}
               component={Profile}
+            />
+          )}
+        />
+        <PrivateRoute
+          path={`${config.pathname}/user-actions`}
+          component={(props) => (
+            <DefaultLayout
+              routeKey="user-actions"
+              {...props}
+              component={UserActions}
             />
           )}
         />

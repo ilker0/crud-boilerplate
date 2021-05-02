@@ -1,7 +1,7 @@
 import {
   SET_RESET_PASSWORD_LOADING,
   SET_RESET_TOKEN_CHECK_LOADING,
-} from 'Auth/ActionTypes/AuthActionTypes';
+} from 'Auth/Constants/AuthActionTypes';
 
 const initialState = {
   loading: false,

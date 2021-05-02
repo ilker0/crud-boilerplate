@@ -5,4 +5,5 @@ export default {
   publicUrl: process.env.PUBLIC_URL,
   //
   AUTH_API: process.env.REACT_APP_AUTH_API,
+  CATEGORY_API: process.env.REACT_APP_CATEGORY_API,
 };

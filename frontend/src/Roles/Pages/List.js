@@ -1,8 +1,11 @@
 import React from 'react';
 import { Row, Col, Select, Table, Dropdown, Menu, Button } from 'antd';
 import { FileOutlined, PlusOutlined } from '@ant-design/icons';
+import { useTranslation } from 'react-i18next';
 
 export function RoleList() {
+  const { t } = useTranslation();
+
   const data = [
     {
       key: '1',
@@ -52,8 +55,13 @@ export function RoleList() {
       </Menu.Item>
     </Menu>
   );
+
   return (
     <Row>
+      <Col span={5} className="flex justify-between items-center u-m-b-5">
+        <h3 className="u-m-0">{t('GENERAL.CATEGORIES')}</h3>
+      </Col>
+
       <Col span={24} className="b-white u-p-4 shadow-primary u-m-l-a">
         <div className="flex u-m-b-4 justify-between">
           <div>

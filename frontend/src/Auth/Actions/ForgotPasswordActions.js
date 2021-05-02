@@ -1,4 +1,4 @@
-import { SET_FORGOT_PASSWOD_LOADING } from 'Auth/ActionTypes/AuthActionTypes';
+import { SET_FORGOT_PASSWOD_LOADING } from 'Auth/Constants/AuthActionTypes';
 import { forgotPasswordRequest } from 'Auth/Services/Auth';
 
 export const CallForgotPassword = (values) => async (dispatch) => {
