@@ -5,10 +5,12 @@ import {
   SET_PAGINATION,
   SET_FILTER,
   SET_ORDER,
+  SET_SUBMIT_LOADING,
 } from 'Categories/Constants/CategoryActionTypes';
 
 const initialState = {
   loading: false,
+  submitLoading: false,
   data: [],
   count: 0,
   queryFilter: {
@@ -23,6 +25,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         loading: action.data,
+      };
+
+    case SET_SUBMIT_LOADING:
+      return {
+        ...state,
+        submitLoading: action.data,
       };
     case SET_DATA:
       return {

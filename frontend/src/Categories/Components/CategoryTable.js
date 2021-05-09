@@ -1,9 +1,16 @@
 import React from 'react';
-import { Table, Tag, Space } from 'antd';
+import { Table, Tag, Space, Popconfirm } from 'antd';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 
-export function CategoryTable({ data, count, loading, handleTableChange }) {
+export function CategoryTable({
+  data,
+  count,
+  loading,
+  handleTableChange,
+  onUpdate,
+  onDelete,
+}) {
   const { t } = useTranslation();
   return (
     <Table
@@ -53,10 +60,18 @@ export function CategoryTable({ data, count, loading, handleTableChange }) {
         title={t('GENERAL.TRANSACTIONS')}
         dataIndex="transactions"
         key="transactions"
-        render={() => (
+        render={(row, record) => (
           <Space size="middle">
-            <a>{t('GENERAL.DELETE')}</a>
-            <a>{t('GENERAL.UPDATE')}</a>
+            <Popconfirm
+              placement="topLeft"
+              title={t('GENERAL.AREYOUSURE')}
+              onConfirm={() => onDelete(record.id)}
+              okText={t('GENERAL.YES')}
+              cancelText={t('GENERAL.NO')}
+            >
+              <a>{t('GENERAL.DELETE')}</a>
+            </Popconfirm>
+            <a onClick={() => onUpdate(record)}>{t('GENERAL.UPDATE')}</a>
           </Space>
         )}
       />

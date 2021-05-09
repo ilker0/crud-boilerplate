@@ -5,8 +5,14 @@ import {
   SET_PAGINATION,
   SET_FILTER,
   SET_ORDER,
+  SET_SUBMIT_LOADING,
 } from 'Categories/Constants/CategoryActionTypes';
-import { getRequest } from 'Categories/Services/Category';
+import {
+  getRequest,
+  postRequest,
+  deleteRequest,
+  putRequest,
+} from 'Categories/Services/Category';
 import { QueryBuilder } from 'Shared/Utils';
 
 export const CallCategories = () => async (dispatch, getState) => {
@@ -25,6 +31,48 @@ export const CallCategories = () => async (dispatch, getState) => {
     dispatch(setLoading(false));
   } catch (error) {
     dispatch(setLoading(false));
+    throw error;
+  }
+};
+
+export const CallSaveCategory = (values) => async (dispatch) => {
+  try {
+    dispatch(setSubmitLoading(true));
+
+    const result = await postRequest(values);
+    dispatch(setSubmitLoading(false));
+
+    return result;
+  } catch (error) {
+    dispatch(setSubmitLoading(false));
+    throw error;
+  }
+};
+
+export const CallUpdateCategory = (values) => async (dispatch) => {
+  try {
+    dispatch(setSubmitLoading(true));
+
+    const result = await putRequest(values);
+    dispatch(setSubmitLoading(false));
+
+    return result;
+  } catch (error) {
+    dispatch(setSubmitLoading(false));
+    throw error;
+  }
+};
+
+export const CallDeleteCategory = (id) => async (dispatch) => {
+  try {
+    dispatch(setSubmitLoading(true));
+
+    const result = await deleteRequest(id);
+    dispatch(setSubmitLoading(false));
+
+    return result;
+  } catch (error) {
+    dispatch(setSubmitLoading(false));
     throw error;
   }
 };
@@ -67,6 +115,11 @@ export const CallSetOrder = ({ name, order }) => async (dispatch) => {
 
 const setLoading = (data) => ({
   type: SET_DATA_LOADING,
+  data,
+});
+
+const setSubmitLoading = (data) => ({
+  type: SET_SUBMIT_LOADING,
   data,
 });
 

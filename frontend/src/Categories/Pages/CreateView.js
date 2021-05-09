@@ -1,19 +1,15 @@
 import React from 'react';
-import { Modal, Form, Button, Input, Skeleton, Select } from 'antd';
+import { Modal, Form, Button, Input, Skeleton } from 'antd';
 import { useTranslation } from 'react-i18next';
 
-const EditView = ({ visible, onClose, onSubmit, initialValues, loading }) => {
+const CreateView = ({ visible, onClose, onSubmit, loading }) => {
   const { t } = useTranslation();
 
   return (
     <Modal width={500} footer={false} visible={visible} onCancel={onClose}>
       {loading && <Skeleton />}
       {!loading && (
-        <Form
-          layout="vertical"
-          onFinish={onSubmit}
-          initialValues={initialValues}
-        >
+        <Form layout="vertical" onFinish={onSubmit}>
           <Form.Item required name="name" label={t('CATEGORY.CATEGORYNAME')}>
             <Input />
           </Form.Item>
@@ -25,13 +21,6 @@ const EditView = ({ visible, onClose, onSubmit, initialValues, loading }) => {
             hidden
           >
             <Input />
-          </Form.Item>
-
-          <Form.Item required name="isActive" label={t('GENERAL.STATUS')}>
-            <Select>
-              <Select.Option value={1}>{t('GENERAL.ACTIVE')}</Select.Option>
-              <Select.Option value={0}>{t('GENERAL.PASSIVE')}</Select.Option>
-            </Select>
           </Form.Item>
 
           <div className="flex justify-end">
@@ -48,4 +37,4 @@ const EditView = ({ visible, onClose, onSubmit, initialValues, loading }) => {
   );
 };
 
-export { EditView };
+export { CreateView };

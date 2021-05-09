@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Row, Col, Button, Tooltip, Dropdown, Menu } from 'antd';
+import { Row, Col, Button, Tooltip, Dropdown, Menu, notification } from 'antd';
 import { CategoryFilter, CategoryTable } from 'Categories/Components';
 import {
   MenuUnfoldOutlined,
@@ -13,12 +13,20 @@ import {
   CallSetPagination,
   CallSetFilter,
   CallSetOrder,
+  CallSaveCategory,
+  CallDeleteCategory,
+  CallUpdateCategory,
 } from 'Categories/Actions/CategoryActions';
 import { useDispatch, useSelector } from 'react-redux';
+import { EditView } from './EditView';
+import { CreateView } from './CreateView';
 
 export function CategoryList() {
   const { t } = useTranslation();
   const [isVisibleFilters, setisVisibleFilters] = useState(true);
+  const [isVisibleCreateView, setIsVisibleCreateView] = useState(false);
+  const [isVisibleEditView, setIsVisibleEditView] = useState(false);
+  const [editData, setEditData] = useState(null);
   const dispatch = useDispatch();
 
   const CategoryListState = useSelector((state) => {
@@ -69,6 +77,77 @@ export function CategoryList() {
     try {
       dispatch(CallSetFilter(val));
       await dispatch(CallCategories());
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleCreateViewOpen = () => {
+    setIsVisibleCreateView(true);
+  };
+
+  const handleEditViewClose = () => {
+    setIsVisibleEditView(false);
+  };
+
+  const handleCreateViewClose = () => {
+    setIsVisibleCreateView(false);
+  };
+
+  const handleOnSubmit = async (values) => {
+    try {
+      await dispatch(CallSaveCategory(values));
+      notification.success({
+        message: t('GENERAL.SUCCESSFUL'),
+      });
+      setIsVisibleCreateView(false);
+      setIsVisibleEditView(false);
+      await dispatch(CallCategories());
+    } catch (err) {
+      notification.error({
+        message: t('GENERAL.UNSUCCESSFUL'),
+        description: t(`ERRORS.${err.message}`),
+      });
+    }
+  };
+
+  const handleOnUpdateSubmit = async (values) => {
+    try {
+      await dispatch(CallUpdateCategory(values));
+      notification.success({
+        message: t('GENERAL.SUCCESSFUL'),
+      });
+      await setIsVisibleEditView(false);
+      await setEditData(null);
+      await dispatch(CallCategories());
+    } catch (err) {
+      notification.error({
+        message: t('GENERAL.UNSUCCESSFUL'),
+        description: t(`ERRORS.${err.message}`),
+      });
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      await dispatch(CallDeleteCategory(id));
+      await dispatch(CallCategories());
+
+      notification.success({
+        message: t('GENERAL.SUCCESSFUL'),
+      });
+    } catch (err) {
+      notification.error({
+        message: t('GENERAL.UNSUCCESSFUL'),
+        description: t(`ERRORS.${err.message}`),
+      });
+    }
+  };
+
+  const handleUpdate = async (data) => {
+    try {
+      setEditData(data);
+      setIsVisibleEditView(true);
     } catch (err) {
       console.error(err);
     }
@@ -146,7 +225,11 @@ export function CategoryList() {
                     {t('GENERAL.EXPORT')}
                   </Button>
                 </Dropdown>
-                <Button className="u-m-l-3" type="primary">
+                <Button
+                  onClick={handleCreateViewOpen}
+                  className="u-m-l-3"
+                  type="primary"
+                >
                   <PlusOutlined />
                   {t('CATEGORY.NEWCATEGORY')}
                 </Button>
@@ -157,7 +240,24 @@ export function CategoryList() {
               data={CategoryListState.data}
               count={CategoryListState.count}
               loading={CategoryListState.loading}
+              onDelete={handleDelete}
+              onUpdate={handleUpdate}
               handleTableChange={handleTableChange}
+            />
+
+            <CreateView
+              visible={isVisibleCreateView}
+              onClose={handleCreateViewClose}
+              onSubmit={handleOnSubmit}
+              loading={CategoryListState.submitLoading}
+            />
+
+            <EditView
+              visible={isVisibleEditView}
+              onClose={handleEditViewClose}
+              onSubmit={handleOnUpdateSubmit}
+              loading={CategoryListState.submitLoading}
+              initialValues={editData}
             />
           </Col>
         </Row>

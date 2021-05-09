@@ -61,6 +61,7 @@
   },
   "ERRORS": {
     "ERR_WRONG_USERNAME_OR_PASSWORD": "Wrong username or password",
-    "ERR_NOT_FOUND_USER": "User not found"
+    "ERR_NOT_FOUND_USER": "User not found",
+    "ERR_ALREADY_HAVE_NAME": "Already have name!"
   }
 }
