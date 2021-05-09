@@ -10,12 +10,15 @@ import {
   MenuOutlined,
   CloseOutlined,
 } from '@ant-design/icons';
+import { useDispatch } from 'react-redux';
+import { CallLogout } from 'Auth/Actions/LoginActions';
 import HeaderMenu from './HeaderMenu';
 
 export function Header({ routeKey }) {
   const { t, i18n } = useTranslation();
   const history = useHistory();
   const [isVisibleResponsiveMenu, setIsVisibleResponsiveMenu] = useState(false);
+  const dispatch = useDispatch();
 
   const handleLanguage = (val) => {
     changeLanguage(val, i18n);
@@ -27,7 +30,7 @@ export function Header({ routeKey }) {
       okText: t('GENERAL.YES'),
       cancelText: t('GENERAL.NO'),
       onOk() {
-        localStorage.removeItem('userToken');
+        dispatch(CallLogout());
         setTimeout(() => {
           history.push('/');
         }, 500);

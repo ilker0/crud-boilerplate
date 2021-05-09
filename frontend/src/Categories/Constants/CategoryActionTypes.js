@@ -1,3 +1,6 @@
 export const SET_DATA_LOADING = 'CATEGORY/LOADING';
 export const SET_DATA = 'CATEGORY/DATA';
 export const SET_COUNT = 'CATEGORY/COUNT';
+export const SET_PAGINATION = 'CATEGORY/PAGINATION';
+export const SET_FILTER = 'CATEGORY/FILTER';
+export const SET_ORDER = 'CATEGORY/ORDER';

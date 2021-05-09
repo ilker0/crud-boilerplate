@@ -3,15 +3,21 @@ import { Table, Tag, Space } from 'antd';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 
-export function CategoryTable({ data, count, loading }) {
+export function CategoryTable({ data, count, loading, handleTableChange }) {
   const { t } = useTranslation();
-
   return (
     <Table
-      pagination={{ total: count, position: ['bottomLeft'] }}
+      pagination={{
+        total: count,
+        position: ['topRight'],
+        showSizeChanger: true,
+      }}
       loading={loading}
       dataSource={data}
       rowSelection
+      onChange={handleTableChange}
+      rowKey="id"
+      scroll={{ x: 1200 }}
     >
       <Table.Column
         title={t('CATEGORY.CATEGORYNAME')}
@@ -23,7 +29,6 @@ export function CategoryTable({ data, count, loading }) {
         title={t('GENERAL.ADDINGUSER')}
         dataIndex="user"
         key="user"
-        sorter
       />
       <Table.Column
         title={t('GENERAL.STATUS')}

@@ -1,17 +1,29 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { store } from 'Shared/Utils';
+import { store, defaultLanguage } from 'Shared/Utils';
 import { Provider } from 'react-redux';
 import './i18n';
+import tr from 'antd/lib/locale//tr_TR';
+import en from 'antd/lib/locale/en_US';
+import { ConfigProvider } from 'antd';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'antd/dist/antd.css';
 import './main.scss';
 
+const currentLang = defaultLanguage();
+let lang = en;
+
+if (currentLang === 'tr') {
+  lang = tr;
+}
+
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <ConfigProvider locale={lang}>
+    <Provider store={store}>
+      <App />
+    </Provider>
+  </ConfigProvider>,
   document.getElementById('root'),
 );
 

@@ -37,7 +37,21 @@ export const CallRefreshToken = (values) => async (dispatch) => {
   }
 };
 
+export const CallLogout = () => async (dispatch) => {
+  try {
+    localStorage.removeItem('userToken');
+    localStorage.removeItem('refreshToken');
+    dispatch(resetState());
+  } catch (error) {
+    throw error;
+  }
+};
+
 const setLoading = (data) => ({
   type: SET_LOGIN_LOADING,
   data,
+});
+
+const resetState = () => ({
+  type: 'RESET_STATE',
 });

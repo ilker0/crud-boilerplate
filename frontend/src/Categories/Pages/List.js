@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Row, Col, Button, Tooltip, Dropdown, Menu, Select } from 'antd';
+import { Row, Col, Button, Tooltip, Dropdown, Menu } from 'antd';
 import { CategoryFilter, CategoryTable } from 'Categories/Components';
 import {
   MenuUnfoldOutlined,
@@ -8,7 +8,12 @@ import {
   FileOutlined,
   PlusOutlined,
 } from '@ant-design/icons';
-import { CallCategories } from 'Categories/Actions/CategoryActions';
+import {
+  CallCategories,
+  CallSetPagination,
+  CallSetFilter,
+  CallSetOrder,
+} from 'Categories/Actions/CategoryActions';
 import { useDispatch, useSelector } from 'react-redux';
 
 export function CategoryList() {
@@ -32,7 +37,40 @@ export function CategoryList() {
     try {
       await dispatch(CallCategories());
     } catch (err) {
-      console.log(err);
+      console.error(err);
+    }
+  };
+
+  const handleTableChange = async (pagination, filters, sorter) => {
+    const { current, pageSize } = pagination;
+
+    try {
+      dispatch(
+        CallSetPagination({
+          skip: current,
+          take: pageSize,
+        }),
+      );
+
+      dispatch(
+        CallSetOrder({
+          name: sorter.columnKey,
+          order: sorter.order,
+        }),
+      );
+
+      await dispatch(CallCategories());
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleFilter = async (val) => {
+    try {
+      dispatch(CallSetFilter(val));
+      await dispatch(CallCategories());
+    } catch (err) {
+      console.error(err);
     }
   };
 
@@ -73,7 +111,7 @@ export function CategoryList() {
         <Row>
           {isVisibleFilters && (
             <Col xs={24} sm={24} md={24} lg={10} xl={5}>
-              <CategoryFilter />
+              <CategoryFilter handleFilter={handleFilter} />
             </Col>
           )}
 
@@ -113,30 +151,13 @@ export function CategoryList() {
                   {t('CATEGORY.NEWCATEGORY')}
                 </Button>
               </div>
-
-              <Select style={{ width: 120 }} defaultValue="10">
-                <Select.Option value="10">
-                  10 / {t('GENERAL.PAGE')}
-                </Select.Option>
-                <Select.Option value="20">
-                  20 / {t('GENERAL.PAGE')}
-                </Select.Option>
-                <Select.Option value="30">
-                  30 / {t('GENERAL.PAGE')}
-                </Select.Option>
-                <Select.Option value="40">
-                  40 / {t('GENERAL.PAGE')}
-                </Select.Option>
-                <Select.Option value="50">
-                  50 / {t('GENERAL.PAGE')}
-                </Select.Option>
-              </Select>
             </div>
 
             <CategoryTable
               data={CategoryListState.data}
               count={CategoryListState.count}
               loading={CategoryListState.loading}
+              handleTableChange={handleTableChange}
             />
           </Col>
         </Row>

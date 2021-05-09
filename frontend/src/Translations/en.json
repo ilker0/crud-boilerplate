@@ -43,7 +43,9 @@
     "FILTERS": "Filters",
     "EXPORT": "Export",
     "DELETE": "Delete",
-    "UPDATE": "Update"
+    "UPDATE": "Update",
+    "ACTIVE": "Active",
+    "PASSIVE": "Passive"
   },
   "CATEGORY": {
     "CATEGORYNAME": "Category Name",
