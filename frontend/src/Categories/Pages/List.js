@@ -101,7 +101,6 @@ export function CategoryList() {
         message: t('GENERAL.SUCCESSFUL'),
       });
       setIsVisibleCreateView(false);
-      setIsVisibleEditView(false);
       await dispatch(CallCategories());
     } catch (err) {
       notification.error({
@@ -117,9 +116,10 @@ export function CategoryList() {
       notification.success({
         message: t('GENERAL.SUCCESSFUL'),
       });
-      await setIsVisibleEditView(false);
-      await setEditData(null);
-      await dispatch(CallCategories());
+
+      setIsVisibleEditView(false);
+      setEditData(null);
+      dispatch(CallCategories());
     } catch (err) {
       notification.error({
         message: t('GENERAL.UNSUCCESSFUL'),
@@ -146,7 +146,7 @@ export function CategoryList() {
 
   const handleUpdate = async (data) => {
     try {
-      setEditData(data);
+      await setEditData(data);
       setIsVisibleEditView(true);
     } catch (err) {
       console.error(err);
@@ -251,14 +251,15 @@ export function CategoryList() {
               onSubmit={handleOnSubmit}
               loading={CategoryListState.submitLoading}
             />
-
-            <EditView
-              visible={isVisibleEditView}
-              onClose={handleEditViewClose}
-              onSubmit={handleOnUpdateSubmit}
-              loading={CategoryListState.submitLoading}
-              initialValues={editData}
-            />
+            {isVisibleEditView && (
+              <EditView
+                visible={isVisibleEditView}
+                onClose={handleEditViewClose}
+                onSubmit={handleOnUpdateSubmit}
+                loading={CategoryListState.submitLoading}
+                initialValues={editData}
+              />
+            )}
           </Col>
         </Row>
       </Col>

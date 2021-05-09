@@ -1,15 +1,28 @@
 import React from 'react';
 import { Modal, Form, Button, Input, Skeleton, Select } from 'antd';
 import { useTranslation } from 'react-i18next';
+import { useForm } from 'antd/lib/form/Form';
 
 const EditView = ({ visible, onClose, onSubmit, initialValues, loading }) => {
   const { t } = useTranslation();
+  const [form] = useForm();
+
+  const handleOnClose = () => {
+    form.resetFields();
+    onClose();
+  };
 
   return (
-    <Modal width={500} footer={false} visible={visible} onCancel={onClose}>
+    <Modal
+      width={500}
+      footer={false}
+      visible={visible}
+      onCancel={handleOnClose}
+    >
       {loading && <Skeleton />}
       {!loading && (
         <Form
+          form={form}
           layout="vertical"
           onFinish={onSubmit}
           initialValues={initialValues}
@@ -35,7 +48,7 @@ const EditView = ({ visible, onClose, onSubmit, initialValues, loading }) => {
           </Form.Item>
 
           <div className="flex justify-end">
-            <Button onClick={onClose} className="u-m-r-3">
+            <Button onClick={handleOnClose} className="u-m-r-3">
               Cancel
             </Button>
             <Button type="primary" htmlType="submit">
