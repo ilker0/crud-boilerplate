@@ -4,7 +4,7 @@ const errorHandler = require('../utils/errorHandler');
 const { alreadyHave, notFound } = require('../utils/errors');
 const queryParser = require('../utils/queryParser');
 
-class CategoryService {
+class GalleryService {
 	createCategory = async request => {
 		try {
 			const { body: data, user } = request;
@@ -107,4 +107,4 @@ class CategoryService {
 	};
 }
 
-module.exports = new CategoryService();
+module.exports = new GalleryService();

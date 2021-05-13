@@ -25,6 +25,7 @@ const updateCategorySchema = Joi.object({
 			'any.required': required('NAME'),
 			'string.max': max(100, 'NAME'),
 		}),
+	isActive: Joi.number(),
 });
 
 const deleteCategorySchema = Joi.object({

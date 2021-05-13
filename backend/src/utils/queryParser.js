@@ -112,7 +112,7 @@ class QueryParser {
 
 	filterParser() {
 		const { filter } = this.requestQuery;
-		const filterObject = null;
+		let filterObject = null;
 
 		if (!filter) {
 			return false;

@@ -28,4 +28,9 @@ module.exports = {
 	editRole: 'EDIT_ROLE',
 	deleteRole: 'DELETE_ROLE',
 	selectRole: 'SELECT_ROLE',
+	//
+	createPhoto: 'CREATE_PHOTO',
+	editPhoto: 'EDIT_PHOTO',
+	deletePhoto: 'DELETE_PHOTO',
+	selectPhoto: 'SELECT_PHOTO',
 };
