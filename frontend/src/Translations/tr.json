@@ -45,11 +45,18 @@
     "FILTERS": "Filtreler",
     "EXPORT": "Çıktı",
     "DELETE": "Sil",
-    "UPDATE": "Güncelle"
+    "UPDATE": "Güncelle",
+    "CATEGORY": "Kategori",
+    "PHOTOS": "Fotoğraflar"
   },
   "CATEGORY": {
     "CATEGORYNAME": "Kategori Adı",
     "NEWCATEGORY": "Yeni kategori"
+  },
+  "GALLERY": {
+    "PHOTONAME": "Fotoğraf Adı",
+    "NEWPHOTO": "Yeni fotoğraf",
+    "COPTYTHELINK": "Linki kopyala"
   },
   "VALIDATIONS": {
     "PLEASEINPUTPASSWORD": "Lütfen parola giriniz!",

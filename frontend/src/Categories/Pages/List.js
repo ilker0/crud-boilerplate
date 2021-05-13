@@ -18,8 +18,8 @@ import {
   CallUpdateCategory,
 } from 'Categories/Actions/CategoryActions';
 import { useDispatch, useSelector } from 'react-redux';
-import { EditView } from './EditView';
-import { CreateView } from './CreateView';
+import { EditView } from './Edit';
+import { CreateView } from './Create';
 
 export function CategoryList() {
   const { t } = useTranslation();

@@ -14,15 +14,6 @@ const CreateView = ({ visible, onClose, onSubmit, loading }) => {
             <Input />
           </Form.Item>
 
-          <Form.Item
-            required
-            name="id"
-            label={t('CATEGORY.CATEGORYNAME')}
-            hidden
-          >
-            <Input />
-          </Form.Item>
-
           <div className="flex justify-end">
             <Button onClick={onClose} className="u-m-r-3">
               Cancel

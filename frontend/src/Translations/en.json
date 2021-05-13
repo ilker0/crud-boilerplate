@@ -45,11 +45,18 @@
     "DELETE": "Delete",
     "UPDATE": "Update",
     "ACTIVE": "Active",
-    "PASSIVE": "Passive"
+    "PASSIVE": "Passive",
+    "CATEGORY": "Category",
+    "PHOTOS": "Photos"
   },
   "CATEGORY": {
     "CATEGORYNAME": "Category Name",
     "NEWCATEGORY": "New category"
+  },
+  "GALLERY": {
+    "PHOTONAME": "Photo Name",
+    "NEWPHOTO": "New photo",
+    "COPTYTHELINK": "Copy the link"
   },
   "VALIDATIONS": {
     "PLEASEINPUTPASSWORD": "Please input password!",

@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Input, Button, Form, Select } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 
-export function CategoryFilter({ handleFilter }) {
+export function GalleryFilter({ handleFilter }) {
   const { t } = useTranslation();
 
   const onSubmit = (values) => {
@@ -15,11 +15,11 @@ export function CategoryFilter({ handleFilter }) {
       <h3 className="u-m-0">Filtreler</h3>
 
       <Form layout="vertical" onFinish={onSubmit} className="u-m-t-5">
-        <Form.Item name="name" label={t('CATEGORY.CATEGORYNAME')}>
+        <Form.Item name="name" label={t('GALLERY.PHOTONAME')}>
           <Input />
         </Form.Item>
 
-        <Form.Item name="isActive" label={t('GENERAL.STATUS')}>
+        <Form.Item name="isActive" label={t('GENERAL.CATEGORY')}>
           <Select allowClear>
             <Select.Option value={1}>{t('GENERAL.ACTIVE')}</Select.Option>
             <Select.Option value={0}>{t('GENERAL.PASSIVE')}</Select.Option>

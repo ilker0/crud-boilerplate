@@ -31,6 +31,7 @@ export const CallCategories = () => async (dispatch, getState) => {
     dispatch(setLoading(false));
   } catch (error) {
     dispatch(setLoading(false));
+    dispatch(setData([]));
     throw error;
   }
 };
@@ -77,41 +78,47 @@ export const CallDeleteCategory = (id) => async (dispatch) => {
   }
 };
 
-export const CallSetPagination = ({ skip, take }) => async (dispatch) => {
-  try {
-    dispatch(setPagination({ skip, take }));
-  } catch (error) {
-    throw error;
-  }
-};
+export const CallSetPagination =
+  ({ skip, take }) =>
+  async (dispatch) => {
+    try {
+      dispatch(setPagination({ skip, take }));
+    } catch (error) {
+      throw error;
+    }
+  };
 
-export const CallSetFilter = ({ name, isActive }) => async (dispatch) => {
-  try {
-    name = {
-      value: name,
-      operator: 'like',
-      key: 'name',
-    };
+export const CallSetFilter =
+  ({ name, isActive }) =>
+  async (dispatch) => {
+    try {
+      name = {
+        value: name,
+        operator: 'like',
+        key: 'name',
+      };
 
-    isActive = {
-      value: isActive,
-      operator: 'equal',
-      key: 'isActive',
-    };
+      isActive = {
+        value: isActive,
+        operator: 'equal',
+        key: 'isActive',
+      };
 
-    dispatch(setFilter({ name, isActive }));
-  } catch (error) {
-    throw error;
-  }
-};
+      dispatch(setFilter({ name, isActive }));
+    } catch (error) {
+      throw error;
+    }
+  };
 
-export const CallSetOrder = ({ name, order }) => async (dispatch) => {
-  try {
-    dispatch(setOrder({ name, operator: order }));
-  } catch (error) {
-    throw error;
-  }
-};
+export const CallSetOrder =
+  ({ name, order }) =>
+  async (dispatch) => {
+    try {
+      dispatch(setOrder({ name, operator: order }));
+    } catch (error) {
+      throw error;
+    }
+  };
 
 const setLoading = (data) => ({
   type: SET_DATA_LOADING,
