@@ -33,10 +33,5 @@ module.exports = new EntitySchema({
 			type: 'many-to-one',
 			cascade: true,
 		},
-		category: {
-			target: 'Category',
-			type: 'many-to-one',
-			cascade: true,
-		},
 	},
 });

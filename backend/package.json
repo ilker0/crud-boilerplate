@@ -21,6 +21,7 @@
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "express-fileupload": "^1.2.1",
     "handlebars": "^4.7.7",
     "joi": "^17.4.0",
     "jsonwebtoken": "^8.5.1",

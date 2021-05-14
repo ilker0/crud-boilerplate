@@ -1,14 +1,15 @@
-const { createCategorySchema, updateCategorySchema, deleteCategorySchema } = require('../validations/category');
-const { create, update, selectOne, deleteOne, selectAll } = require('../database/repositories/category');
+const { createPhotoSchema, updatePhotoSchema, deletePhotoSchema } = require('../validations/gallery');
+const { create, update, selectOne, deleteOne, selectAll } = require('../database/repositories/gallery');
 const errorHandler = require('../utils/errorHandler');
 const { alreadyHave, notFound } = require('../utils/errors');
 const queryParser = require('../utils/queryParser');
+var path = require('path');
 
 class GalleryService {
-	createCategory = async request => {
+	createPhoto = async request => {
 		try {
-			const { body: data, user } = request;
-			const { error } = createCategorySchema.validate(data);
+			const { body: data, user, files } = request;
+			const { error } = createPhotoSchema.validate(data);
 
 			if (error) {
 				throw { name: 'ValidationError', message: `${error.details.map(x => x.message).join(', ')}` };
@@ -16,22 +17,29 @@ class GalleryService {
 
 			const { name } = data;
 
-			data.user = user.id;
+			const photo = await selectOne({ name });
 
-			const category = await selectOne({ name });
-
-			if (category) {
+			if (photo) {
 				throw { name: 'RequestError', message: alreadyHave('NAME') };
 			}
+
+			const file = files.image;
+			const fileName = name + '.png';
+			const filePath = path.join(__dirname, '../../uploads/' + fileName);
+			await file.mv(filePath);
+
+			data.user = user.id;
+			data.filePath = fileName;
 
 			const result = await create(data);
 			return result;
 		} catch (error) {
+			console.log(error);
 			throw errorHandler(error);
 		}
 	};
 
-	getCategories = async request => {
+	getPhotos = async request => {
 		try {
 			const { query } = request;
 			const parsedQuery = queryParser.parseQuery(query);
@@ -56,47 +64,54 @@ class GalleryService {
 		}
 	};
 
-	updateCategory = async request => {
+	updatePhoto = async request => {
 		try {
-			const { body: data, user } = request;
-			const { error } = updateCategorySchema.validate(data);
+			const { body: data, user, files } = request;
+			const { error } = updatePhotoSchema.validate(data);
 
 			if (error) {
 				throw { name: 'ValidationError', message: `${error.details.map(x => x.message).join(', ')}` };
 			}
 
-			const { id } = data;
+			const { id, name } = data;
+
+			const file = files.image;
+			const fileName = name + '.png';
+			const filePath = path.join(__dirname, '../../uploads/' + fileName);
+			await file.mv(filePath);
 
 			data.user = user.id;
+			data.filePath = fileName;
 
-			const category = await selectOne({ id });
+			const photo = await selectOne({ id });
 
-			if (!category) {
-				throw { name: 'RequestError', message: notFound('CATEGORY') };
+			if (!photo) {
+				throw { name: 'RequestError', message: notFound('PHOTO') };
 			}
 
 			const result = await update(data, { id });
 			return result;
 		} catch (error) {
+			console.log(error);
 			throw errorHandler(error);
 		}
 	};
 
-	deleteCategory = async request => {
+	deletePhoto = async request => {
 		try {
 			const { query: data } = request;
 
-			const { error } = deleteCategorySchema.validate(data);
+			const { error } = deletePhotoSchema.validate(data);
 
 			if (error) {
 				throw { name: 'ValidationError', message: `${error.details.map(x => x.message).join(', ')}` };
 			}
 
 			const { id } = data;
-			const category = await selectOne({ id });
+			const photo = await selectOne({ id });
 
-			if (!category) {
-				throw { name: 'RequestError', message: notFound('CATEGORY') };
+			if (!photo) {
+				throw { name: 'RequestError', message: notFound('PHOTO') };
 			}
 
 			const result = await deleteOne({ id });

@@ -36,10 +36,13 @@ class CategoryService {
 			const { query } = request;
 			const parsedQuery = queryParser.parseQuery(query);
 			parsedQuery.relations = ['user'];
-			parsedQuery.order = {
-				createdAt: 'ASC',
-				...parsedQuery.order,
-			};
+
+			if (!parsedQuery.order) {
+				parsedQuery.order = {
+					createdAt: 'ASC',
+					...parsedQuery.order,
+				};
+			}
 
 			const result = await selectAll(parsedQuery);
 
@@ -52,6 +55,7 @@ class CategoryService {
 				count: result[1] || 0,
 			};
 		} catch (error) {
+			console.log(error);
 			throw errorHandler(error);
 		}
 	};
