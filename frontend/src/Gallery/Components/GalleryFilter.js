@@ -1,6 +1,6 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { Input, Button, Form, Select } from 'antd';
+import { Input, Button, Form } from 'antd';
 import { SearchOutlined } from '@ant-design/icons';
 
 export function GalleryFilter({ handleFilter }) {
@@ -17,13 +17,6 @@ export function GalleryFilter({ handleFilter }) {
       <Form layout="vertical" onFinish={onSubmit} className="u-m-t-5">
         <Form.Item name="name" label={t('GALLERY.PHOTONAME')}>
           <Input />
-        </Form.Item>
-
-        <Form.Item name="isActive" label={t('GENERAL.CATEGORY')}>
-          <Select allowClear>
-            <Select.Option value={1}>{t('GENERAL.ACTIVE')}</Select.Option>
-            <Select.Option value={0}>{t('GENERAL.PASSIVE')}</Select.Option>
-          </Select>
         </Form.Item>
 
         <div className="flex justify-end">

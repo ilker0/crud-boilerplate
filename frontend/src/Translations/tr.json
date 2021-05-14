@@ -47,7 +47,10 @@
     "DELETE": "Sil",
     "UPDATE": "Güncelle",
     "CATEGORY": "Kategori",
-    "PHOTOS": "Fotoğraflar"
+    "PHOTOS": "Fotoğraflar",
+    "SAVE": "Kaydet",
+    "PHOTO": "Fotoğraf",
+    "UPLOAD": "Yükle"
   },
   "CATEGORY": {
     "CATEGORYNAME": "Kategori Adı",
@@ -56,7 +59,8 @@
   "GALLERY": {
     "PHOTONAME": "Fotoğraf Adı",
     "NEWPHOTO": "Yeni fotoğraf",
-    "COPTYTHELINK": "Linki kopyala"
+    "COPTYTHELINK": "Linki kopyala",
+    "CLICKORDRAG": "Tıkla veya sürükle bırak"
   },
   "VALIDATIONS": {
     "PLEASEINPUTPASSWORD": "Lütfen parola giriniz!",

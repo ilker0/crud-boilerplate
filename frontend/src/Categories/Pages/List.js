@@ -121,6 +121,7 @@ export function CategoryList() {
       setEditData(null);
       dispatch(CallCategories());
     } catch (err) {
+      setIsVisibleEditView(false);
       notification.error({
         message: t('GENERAL.UNSUCCESSFUL'),
         description: t(`ERRORS.${err.message}`),
@@ -244,13 +245,15 @@ export function CategoryList() {
               onUpdate={handleUpdate}
               handleTableChange={handleTableChange}
             />
+            {isVisibleCreateView && (
+              <CreateView
+                visible={isVisibleCreateView}
+                onClose={handleCreateViewClose}
+                onSubmit={handleOnSubmit}
+                loading={CategoryListState.submitLoading}
+              />
+            )}
 
-            <CreateView
-              visible={isVisibleCreateView}
-              onClose={handleCreateViewClose}
-              onSubmit={handleOnSubmit}
-              loading={CategoryListState.submitLoading}
-            />
             {isVisibleEditView && (
               <EditView
                 visible={isVisibleEditView}

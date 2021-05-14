@@ -6,7 +6,7 @@ import {
   SET_FILTER,
   SET_ORDER,
   SET_SUBMIT_LOADING,
-} from 'Categories/Constants/CategoryActionTypes';
+} from 'Gallery/Constants/GalleryActionTypes';
 
 const initialState = {
   loading: false,

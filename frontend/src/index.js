@@ -9,6 +9,7 @@ import { ConfigProvider } from 'antd';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'antd/dist/antd.css';
+import 'react-lazy-load-image-component/src/effects/blur.css';
 import './main.scss';
 
 const currentLang = defaultLanguage();

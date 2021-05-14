@@ -6,12 +6,16 @@ import {
   SET_FILTER,
   SET_ORDER,
   SET_SUBMIT_LOADING,
+  SET_FILTER_DATA,
+  SET_FILTER_LOADING,
 } from 'Categories/Constants/CategoryActionTypes';
 
 const initialState = {
   loading: false,
   submitLoading: false,
   data: [],
+  filterData: [],
+  filterLoading: false,
   count: 0,
   queryFilter: {
     skip: 0,
@@ -65,6 +69,16 @@ export default (state = initialState, action) => {
           ...state.queryFilter,
           order: action.data,
         },
+      };
+    case SET_FILTER_DATA:
+      return {
+        ...state,
+        filterData: action.data,
+      };
+    case SET_FILTER_LOADING:
+      return {
+        ...state,
+        filterLoading: action.data,
       };
 
     default:

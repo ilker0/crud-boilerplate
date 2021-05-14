@@ -6,6 +6,8 @@ import {
   SET_FILTER,
   SET_ORDER,
   SET_SUBMIT_LOADING,
+  SET_FILTER_DATA,
+  SET_FILTER_LOADING,
 } from 'Categories/Constants/CategoryActionTypes';
 import {
   getRequest,
@@ -32,6 +34,20 @@ export const CallCategories = () => async (dispatch, getState) => {
   } catch (error) {
     dispatch(setLoading(false));
     dispatch(setData([]));
+    throw error;
+  }
+};
+
+export const CallCategoryByName = (name) => async (dispatch) => {
+  try {
+    dispatch(setFilterLoading(true));
+    const result = await getRequest(`filter=name._like.${name}`);
+
+    dispatch(setFilterData(result.message.data));
+  } catch (error) {
+    dispatch(setFilterLoading(false));
+    dispatch(setFilterData([]));
+
     throw error;
   }
 };
@@ -152,5 +168,15 @@ const setFilter = (data) => ({
 
 const setOrder = (data) => ({
   type: SET_ORDER,
+  data,
+});
+
+const setFilterData = (data) => ({
+  type: SET_FILTER_DATA,
+  data,
+});
+
+const setFilterLoading = (data) => ({
+  type: SET_FILTER_LOADING,
   data,
 });

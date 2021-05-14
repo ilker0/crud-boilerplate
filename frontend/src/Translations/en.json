@@ -47,7 +47,10 @@
     "ACTIVE": "Active",
     "PASSIVE": "Passive",
     "CATEGORY": "Category",
-    "PHOTOS": "Photos"
+    "PHOTOS": "Photos",
+    "SAVE": "Save",
+    "PHOTO": "Photo",
+    "UPLOAD": "Upload"
   },
   "CATEGORY": {
     "CATEGORYNAME": "Category Name",
@@ -56,7 +59,8 @@
   "GALLERY": {
     "PHOTONAME": "Photo Name",
     "NEWPHOTO": "New photo",
-    "COPTYTHELINK": "Copy the link"
+    "COPTYTHELINK": "Copy the link",
+    "CLICKORDRAG": "Click or drag"
   },
   "VALIDATIONS": {
     "PLEASEINPUTPASSWORD": "Please input password!",

@@ -27,7 +27,11 @@ const EditView = ({ visible, onClose, onSubmit, initialValues, loading }) => {
           onFinish={onSubmit}
           initialValues={initialValues}
         >
-          <Form.Item required name="name" label={t('CATEGORY.CATEGORYNAME')}>
+          <Form.Item
+            rules={[{ required: true }]}
+            name="name"
+            label={t('CATEGORY.CATEGORYNAME')}
+          >
             <Input />
           </Form.Item>
 
@@ -40,7 +44,11 @@ const EditView = ({ visible, onClose, onSubmit, initialValues, loading }) => {
             <Input />
           </Form.Item>
 
-          <Form.Item required name="isActive" label={t('GENERAL.STATUS')}>
+          <Form.Item
+            rules={[{ required: true }]}
+            name="isActive"
+            label={t('GENERAL.STATUS')}
+          >
             <Select>
               <Select.Option value={1}>{t('GENERAL.ACTIVE')}</Select.Option>
               <Select.Option value={0}>{t('GENERAL.PASSIVE')}</Select.Option>
