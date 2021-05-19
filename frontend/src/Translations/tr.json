@@ -50,7 +50,9 @@
     "PHOTOS": "Fotoğraflar",
     "SAVE": "Kaydet",
     "PHOTO": "Fotoğraf",
-    "UPLOAD": "Yükle"
+    "UPLOAD": "Yükle",
+    "COPIED": "Kopyalandı",
+    "DESCRIPTION": "Açıklama"
   },
   "CATEGORY": {
     "CATEGORYNAME": "Kategori Adı",
@@ -61,6 +63,14 @@
     "NEWPHOTO": "Yeni fotoğraf",
     "COPTYTHELINK": "Linki kopyala",
     "CLICKORDRAG": "Tıkla veya sürükle bırak"
+  },
+  "PRODUCT": {
+    "PRODUCTNAME": "Ürün Adı",
+    "PRICE": "Fiyat",
+    "PRICETYPE": "Fiyat Tipi",
+    "NEWPRODUCT": "Yeni ürün",
+    "MAINPHOTO": "Ana Fotoğraf",
+    "ITMUSTBEPHOTOLINK": "Fotoğraf bağlantısı olmalı !"
   },
   "VALIDATIONS": {
     "PLEASEINPUTPASSWORD": "Lütfen parola giriniz!",

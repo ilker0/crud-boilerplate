@@ -50,7 +50,9 @@
     "PHOTOS": "Photos",
     "SAVE": "Save",
     "PHOTO": "Photo",
-    "UPLOAD": "Upload"
+    "UPLOAD": "Upload",
+    "COPIED": "Copied",
+    "DESCRIPTION": "Description"
   },
   "CATEGORY": {
     "CATEGORYNAME": "Category Name",
@@ -61,6 +63,14 @@
     "NEWPHOTO": "New photo",
     "COPTYTHELINK": "Copy the link",
     "CLICKORDRAG": "Click or drag"
+  },
+  "PRODUCT": {
+    "PRODUCTNAME": "Product Name",
+    "PRICE": "Price",
+    "PRICETYPE": "Price Type",
+    "NEWPRODUCT": "New product",
+    "MAINPHOTO": "Main Photo",
+    "ITMUSTBEPHOTOLINK": "It must be photo link !"
   },
   "VALIDATIONS": {
     "PLEASEINPUTPASSWORD": "Please input password!",

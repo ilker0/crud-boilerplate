@@ -1,49 +1,166 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Row, Col, Button, Tooltip, Table, Select, Dropdown, Menu } from 'antd';
-import { ProductFilter } from 'Products/Components';
+import { Row, Col, Button, Tooltip, Dropdown, Menu, notification } from 'antd';
+import { ProductFilter, ProductTable } from 'Products/Components';
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
   FileOutlined,
   PlusOutlined,
 } from '@ant-design/icons';
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  CallSetPagination,
+  CallSetOrder,
+  CallProducts,
+  CallDeleteProduct,
+  CallSaveProduct,
+  CallUpdateProduct,
+} from 'Products/Actions/Product';
+import { CallCategoryByName } from 'Categories/Actions/CategoryActions';
+import { Create } from './Create';
+import { Edit } from './Edit';
 
 export function ProductList() {
   const { t } = useTranslation();
-
   const [isVisibleFilters, setisVisibleFilters] = useState(true);
+  const [editData, setEditData] = useState(null);
+  const [isVisibleEditView, setIsVisibleEditView] = useState(false);
+  const [isVisibleCreateView, setIsVisibleCreateView] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const ProductListState = useSelector((state) => {
+    const {
+      ProductReducer: { ProductReducer },
+    } = state;
+
+    return ProductReducer;
+  });
+
+  const CategoryListState = useSelector((state) => {
+    const {
+      CategoryReducer: { CategoryReducer },
+    } = state;
+
+    return CategoryReducer;
+  });
+
+  const handleOnUpdateSubmit = async (values) => {
+    try {
+      await dispatch(CallUpdateProduct(values));
+      notification.success({
+        message: t('GENERAL.SUCCESSFUL'),
+      });
+
+      setIsVisibleEditView(false);
+      setEditData(null);
+      getProducts();
+    } catch (err) {
+      setIsVisibleEditView(false);
+      notification.error({
+        message: t('GENERAL.UNSUCCESSFUL'),
+        description: t(`ERRORS.${err.message}`),
+      });
+    }
+  };
+
+  const handleOnSubmit = async (values) => {
+    try {
+      await dispatch(CallSaveProduct(values));
+      notification.success({
+        message: t('GENERAL.SUCCESSFUL'),
+      });
+      setIsVisibleCreateView(false);
+      getProducts();
+    } catch (err) {
+      notification.error({
+        message: t('GENERAL.UNSUCCESSFUL'),
+        description: t(`ERRORS.${err.message}`),
+      });
+    }
+  };
+
+  const getProducts = async () => {
+    try {
+      await dispatch(CallProducts());
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleCreateViewOpen = () => {
+    setIsVisibleCreateView(true);
+  };
+
+  const handleEditViewClose = () => {
+    setIsVisibleEditView(false);
+  };
+
+  const handleCreateViewClose = () => {
+    setIsVisibleCreateView(false);
+  };
+
+  const handleTableChange = async (pagination, filters, sorter) => {
+    const { current, pageSize } = pagination;
+
+    try {
+      dispatch(
+        CallSetPagination({
+          skip: current,
+          take: pageSize,
+        }),
+      );
+
+      dispatch(
+        CallSetOrder({
+          name: sorter.columnKey,
+          order: sorter.order,
+        }),
+      );
+
+      await dispatch(CallProducts());
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const handleFilterVisible = () => {
     setisVisibleFilters(!isVisibleFilters);
   };
 
-  const data = [
-    {
-      key: '1',
-      firstName: 'John',
-      lastName: 'Brown',
-      age: 32,
-      address: 'New York No. 1 Lake Park',
-      tags: ['nice', 'developer'],
-    },
-    {
-      key: '2',
-      firstName: 'Jim',
-      lastName: 'Green',
-      age: 42,
-      address: 'London No. 1 Lake Park',
-      tags: ['loser'],
-    },
-    {
-      key: '3',
-      firstName: 'Joe',
-      lastName: 'Black',
-      age: 32,
-      address: 'Sidney No. 1 Lake Park',
-      tags: ['cool', 'teacher'],
-    },
-  ];
+  const handleDelete = async (id) => {
+    try {
+      await dispatch(CallDeleteProduct(id));
+      await getProducts();
+
+      notification.success({
+        message: t('GENERAL.SUCCESSFUL'),
+      });
+    } catch (err) {
+      notification.error({
+        message: t('GENERAL.UNSUCCESSFUL'),
+        description: t(`ERRORS.${err.message}`),
+      });
+    }
+  };
+
+  const handleUpdate = async (data) => {
+    try {
+      await setEditData(data);
+      setIsVisibleEditView(true);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  const handleChangeCategory = async (val) => {
+    dispatch(CallCategoryByName(val));
+  };
+
+  useEffect(() => {
+    getProducts();
+  }, []);
 
   const exportMenu = (
     <Menu>
@@ -94,7 +211,7 @@ export function ProductList() {
               <div>
                 <Tooltip title={isVisibleFilters ? 'Gizle' : 'Göster'}>
                   <Button onClick={handleFilterVisible}>
-                    Filtreler
+                    {t('GENERAL.FILTERS')}
                     {isVisibleFilters ? (
                       <MenuFoldOutlined />
                     ) : (
@@ -113,26 +230,46 @@ export function ProductList() {
                     Export
                   </Button>
                 </Dropdown>
-                <Button className="u-m-l-3" type="primary">
+                <Button
+                  onClick={handleCreateViewOpen}
+                  className="u-m-l-3"
+                  type="primary"
+                >
                   <PlusOutlined />
-                  New product
+                  {t('PRODUCT.NEWPRODUCT')}
                 </Button>
               </div>
-
-              <Select style={{ width: 110 }} defaultValue="10">
-                <Select.Option value="10">10 / Page</Select.Option>
-                <Select.Option value="20">20 / Page</Select.Option>
-                <Select.Option value="30">30 / Page</Select.Option>
-                <Select.Option value="40">40 / Page</Select.Option>
-                <Select.Option value="50">50 / Page</Select.Option>
-              </Select>
             </div>
-            <Table dataSource={data} rowSelection>
-              <Table.Column title="Age" dataIndex="age" key="age" />
-              <Table.Column title="Address" dataIndex="address" key="address" />
-              <Table.Column title="Tags" dataIndex="tags" key="tags" />
-              <Table.Column title="Action" key="action" />
-            </Table>
+            <ProductTable
+              data={ProductListState.data}
+              count={ProductListState.count}
+              loading={ProductListState.loading}
+              onDelete={handleDelete}
+              onUpdate={handleUpdate}
+              handleTableChange={handleTableChange}
+            />
+
+            {isVisibleCreateView && (
+              <Create
+                visible={isVisibleCreateView}
+                onClose={handleCreateViewClose}
+                onSubmit={handleOnSubmit}
+                loading={ProductListState.submitLoading}
+                handleChangeCategory={handleChangeCategory}
+                categories={CategoryListState.filterData}
+                filterLoading={CategoryListState.filterLoading}
+              />
+            )}
+
+            {isVisibleEditView && (
+              <Edit
+                visible={isVisibleEditView}
+                onClose={handleEditViewClose}
+                onSubmit={handleOnUpdateSubmit}
+                loading={ProductListState.submitLoading}
+                initialValues={editData}
+              />
+            )}
           </Col>
         </Row>
       </Col>

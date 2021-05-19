@@ -9,6 +9,7 @@ import {
   Popconfirm,
   Pagination,
   notification,
+  message,
 } from 'antd';
 import { useTranslation } from 'react-i18next';
 import {
@@ -159,6 +160,7 @@ export function GalleryList() {
 
   const copyClipBoard = (link) => {
     CopyToClipboard(link);
+    message.success(t('GENERAL.COPIED'));
   };
 
   useEffect(() => {

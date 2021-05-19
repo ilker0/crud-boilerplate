@@ -1,0 +1,182 @@
+import {
+  SET_DATA_LOADING,
+  SET_DATA,
+  SET_COUNT,
+  SET_PAGINATION,
+  SET_FILTER,
+  SET_ORDER,
+  SET_SUBMIT_LOADING,
+  SET_FILTER_DATA,
+  SET_FILTER_LOADING,
+} from 'Products/Constants/ProductActionTypes';
+import {
+  getRequest,
+  postRequest,
+  deleteRequest,
+  putRequest,
+} from 'Products/Services/Product';
+import { QueryBuilder } from 'Shared/Utils';
+
+export const CallProducts = () => async (dispatch, getState) => {
+  try {
+    dispatch(setLoading(true));
+    const {
+      ProductReducer: { ProductReducer },
+    } = getState();
+
+    const queryParams = QueryBuilder.buildQuery(ProductReducer.queryFilter);
+    const result = await getRequest(queryParams);
+
+    dispatch(setData(result.message.data));
+    dispatch(setCount(result.message.count));
+
+    dispatch(setLoading(false));
+  } catch (error) {
+    dispatch(setLoading(false));
+    dispatch(setData([]));
+    throw error;
+  }
+};
+
+export const CallCategoryByName = (name) => async (dispatch) => {
+  try {
+    dispatch(setFilterLoading(true));
+    const result = await getRequest(`filter=name._like.${name}`);
+
+    dispatch(setFilterData(result.message.data));
+  } catch (error) {
+    dispatch(setFilterLoading(false));
+    dispatch(setFilterData([]));
+
+    throw error;
+  }
+};
+
+export const CallSaveProduct = (values) => async (dispatch) => {
+  try {
+    dispatch(setSubmitLoading(true));
+
+    const result = await postRequest(values);
+    dispatch(setSubmitLoading(false));
+
+    return result;
+  } catch (error) {
+    dispatch(setSubmitLoading(false));
+    throw error;
+  }
+};
+
+export const CallUpdateProduct = (values) => async (dispatch) => {
+  try {
+    dispatch(setSubmitLoading(true));
+
+    const result = await putRequest(values);
+    dispatch(setSubmitLoading(false));
+
+    return result;
+  } catch (error) {
+    dispatch(setSubmitLoading(false));
+    throw error;
+  }
+};
+
+export const CallDeleteProduct = (id) => async (dispatch) => {
+  try {
+    dispatch(setSubmitLoading(true));
+
+    const result = await deleteRequest(id);
+    dispatch(setSubmitLoading(false));
+
+    return result;
+  } catch (error) {
+    dispatch(setSubmitLoading(false));
+    throw error;
+  }
+};
+
+export const CallSetPagination =
+  ({ skip, take }) =>
+  async (dispatch) => {
+    try {
+      dispatch(setPagination({ skip, take }));
+    } catch (error) {
+      throw error;
+    }
+  };
+
+export const CallSetFilter =
+  ({ name, isActive }) =>
+  async (dispatch) => {
+    try {
+      name = {
+        value: name,
+        operator: 'like',
+        key: 'name',
+      };
+
+      isActive = {
+        value: isActive,
+        operator: 'equal',
+        key: 'isActive',
+      };
+
+      dispatch(setFilter({ name, isActive }));
+    } catch (error) {
+      throw error;
+    }
+  };
+
+export const CallSetOrder =
+  ({ name, order }) =>
+  async (dispatch) => {
+    try {
+      dispatch(setOrder({ name, operator: order }));
+    } catch (error) {
+      throw error;
+    }
+  };
+
+const setLoading = (data) => ({
+  type: SET_DATA_LOADING,
+  data,
+});
+
+const setSubmitLoading = (data) => ({
+  type: SET_SUBMIT_LOADING,
+  data,
+});
+
+const setData = (data) => ({
+  type: SET_DATA,
+  data,
+});
+
+const setCount = (data) => ({
+  type: SET_COUNT,
+  data,
+});
+
+const setPagination = (data) => ({
+  type: SET_PAGINATION,
+  data,
+});
+
+const setFilter = (data) => ({
+  type: SET_FILTER,
+  data,
+});
+
+const setOrder = (data) => ({
+  type: SET_ORDER,
+  data,
+});
+
+const setFilterData = (data) => ({
+  type: SET_FILTER_DATA,
+  data,
+});
+
+const setFilterLoading = (data) => ({
+  type: SET_FILTER_LOADING,
+  data,
+});

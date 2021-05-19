@@ -44,6 +44,9 @@ export const CallCategoryByName = (name) => async (dispatch) => {
     const result = await getRequest(`filter=name._like.${name}`);
 
     dispatch(setFilterData(result.message.data));
+    setTimeout(() => {
+      dispatch(setFilterLoading(false));
+    }, 1000);
   } catch (error) {
     dispatch(setFilterLoading(false));
     dispatch(setFilterData([]));

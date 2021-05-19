@@ -28,9 +28,13 @@ export const CallPhotos = () => async (dispatch, getState) => {
     dispatch(setData(result.message.data));
     dispatch(setCount(result.message.count));
 
-    dispatch(setLoading(false));
+    setTimeout(() => {
+      dispatch(setLoading(false));
+    }, 1000);
   } catch (error) {
-    dispatch(setLoading(false));
+    setTimeout(() => {
+      dispatch(setLoading(false));
+    }, 1000);
     dispatch(setData([]));
     throw error;
   }
@@ -80,11 +84,15 @@ export const CallDeletePhoto = (id) => async (dispatch) => {
     dispatch(setSubmitLoading(true));
 
     const result = await deleteRequest(id);
-    dispatch(setSubmitLoading(false));
+    setTimeout(() => {
+      dispatch(setSubmitLoading(false));
+    }, 1000);
 
     return result;
   } catch (error) {
-    dispatch(setSubmitLoading(false));
+    setTimeout(() => {
+      dispatch(setSubmitLoading(false));
+    }, 1000);
     throw error;
   }
 };
@@ -100,7 +108,7 @@ export const CallSetPagination =
   };
 
 export const CallSetFilter =
-  ({ name, isActive }) =>
+  ({ name }) =>
   async (dispatch) => {
     try {
       name = {
@@ -109,7 +117,7 @@ export const CallSetFilter =
         key: 'name',
       };
 
-      dispatch(setFilter({ name, isActive }));
+      dispatch(setFilter({ name }));
     } catch (error) {
       throw error;
     }
