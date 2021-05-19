@@ -43,18 +43,8 @@ class ProductService {
 			// @TODO relations fix
 
 			const result = await selectAll(parsedQuery);
-			result[0] = result[0].map(item => {
-				const { category: categoryItem, user: userItem } = item;
-				return {
-					...item,
-					category: {
-						name: categoryItem.name,
-						id: categoryItem.id,
-					},
-					user: {
-						username: userItem.username,
-					},
-				};
+			result[0].forEach(item => {
+				item.user = item.user.username;
 			});
 
 			return {

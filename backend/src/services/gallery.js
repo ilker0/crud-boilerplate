@@ -2,8 +2,8 @@ const { createPhotoSchema, updatePhotoSchema, deletePhotoSchema } = require('../
 const { create, update, selectOne, deleteOne, selectAll } = require('../database/repositories/gallery');
 const errorHandler = require('../utils/errorHandler');
 const { alreadyHave, notFound } = require('../utils/errors');
+const { fileUpload } = require('../utils/fileUpload');
 const queryParser = require('../utils/queryParser');
-var path = require('path');
 
 class GalleryService {
 	createPhoto = async request => {
@@ -25,8 +25,8 @@ class GalleryService {
 
 			const file = files.image;
 			const fileName = name + '.png';
-			const filePath = path.join(__dirname, '../../uploads/' + fileName);
-			await file.mv(filePath);
+
+			await fileUpload(file, fileName);
 
 			data.user = user.id;
 			data.filePath = fileName;
@@ -77,8 +77,8 @@ class GalleryService {
 
 			const file = files.image;
 			const fileName = name + '.png';
-			const filePath = path.join(__dirname, '../../uploads/' + fileName);
-			await file.mv(filePath);
+
+			await fileUpload(file, fileName);
 
 			data.user = user.id;
 			data.filePath = fileName;

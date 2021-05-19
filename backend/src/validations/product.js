@@ -29,13 +29,21 @@ const createProductSchema = Joi.object({
 			'any.required': required('PRICE'),
 			'string.max': max(100, 'PRICE'),
 		}),
-	priceType: Joi.string()
+	priceType: Joi.number()
 		.required()
 		.max(1)
 		.messages({
 			'any.required': required('PRICE_TYPE'),
-			'string.max': max(100, 'PRICE_TYPE'),
+			'string.max': max(1, 'PRICE_TYPE'),
 		}),
+	mainPhoto: Joi.string()
+		.required()
+		.messages({
+			'any.required': required('MAIN_PHOTO'),
+		}),
+	photos: Joi.array().messages({
+		'any.required': required('PHOTOS'),
+	}),
 });
 
 const updateProductSchema = Joi.object({
@@ -72,13 +80,21 @@ const updateProductSchema = Joi.object({
 			'any.required': required('PRICE'),
 			'string.max': max(100, 'PRICE'),
 		}),
-	priceType: Joi.string()
+	priceType: Joi.number()
 		.required()
 		.max(1)
 		.messages({
 			'any.required': required('PRICE_TYPE'),
-			'string.max': max(100, 'PRICE_TYPE'),
+			'string.max': max(1, 'PRICE_TYPE'),
 		}),
+	mainPhoto: Joi.string()
+		.required()
+		.messages({
+			'any.required': required('MAIN_PHOTO'),
+		}),
+	photos: Joi.array().messages({
+		'any.required': required('PHOTOS'),
+	}),
 });
 
 const deleteProductSchema = Joi.object({

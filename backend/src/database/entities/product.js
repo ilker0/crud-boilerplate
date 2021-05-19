@@ -23,7 +23,15 @@ module.exports = new EntitySchema({
 		priceType: {
 			type: 'enum',
 			default: 1,
-			enum: [0, 1],
+			enum: [0, 1, 2],
+		},
+		photos: {
+			type: 'text',
+			array: true,
+			nullable: true,
+		},
+		mainPhoto: {
+			type: 'text',
 		},
 		isActive: {
 			type: 'enum',
