@@ -15,6 +15,7 @@
 - Scss
 - PostgreSQL
 - Mongo DB
+- Nginx
 - Redis
 - RabbitMQ
 - Docker
