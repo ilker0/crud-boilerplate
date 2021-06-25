@@ -25,15 +25,15 @@
 
 - [ ] CRUD Process(Sort, filter, pagination, multiple process)
 - [ ] Testing
-- [ ] Authentication and authorization
-- [ ] Error handling
+- [x] Authentication and authorization
+- [x] Error handling
 - [ ] Security
 - [ ] Compression
 - [ ] Logging
-- [ ] Validation
-- [ ] Environment variables
-- [ ] i18
-- [ ] API Documentation
+- [x] Validation
+- [x] Environment variables
+- [x] i18
+- [x] API Documentation
 
 ## Structure
 Coming soon !
